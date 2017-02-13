@@ -1,0 +1,4 @@
+## HTML API
+
+# Root
+GET /
