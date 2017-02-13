@@ -26,25 +26,23 @@
 | date          | date      | not null               |
 | image_notes   | string    |                        |
 | group_options | string    | not null               |
-| complete      | boolean   | not null, default false|
+| settled       | boolean   | not null, default false|
 
-## splits
-|  Column Name | Data Type | Details                |
-|-------------:|-----------|------------------------|
-| id           | integer   | not null, primary key  |
-| user_id      | integer   | not null, indexed      |
-| bill_id      | integer   | not null, indexed      |
-| split_type   | string    | not null               |
-| split_amount | integer   |                        |
-| paid         | boolean   | not null, default false|
+## debts
+| Column Name | Data Type | Details                 |
+|------------:|-----------|-------------------------|
+| id          | integer   | not null, primary key   |
+| amount_owed | decimal   | not null                |
+| bill_id     | integer   | not null, indexed       |
+| debtor_id   | integer   | not null, indexed       |
+| creditor_id | integer   | not null, indexed       |
 
-## transactions
-| Column Name | Data Type | Details               |
-|------------:|-----------|-----------------------|
-| id          | integer   | not null, primary key |
-| amount      | decimal   | not null              |
-| payer_id    | integer   | not null, indexed     |
-| payee_id    | integer   | not null, indexed     |
+## transaction
+| Column Name | Data Type | Details                 |
+|------------:|-----------|-------------------------|
+| id          | integer   | not null, primary key   |
+| amount_paid | decimal   | not null                |
+| debt_id     | integer   | not null, indexed       |
 
 ## comments
 |    Column Name | Data Type | Details               |
@@ -67,11 +65,3 @@
 | id          | integer   | not null, primary key |
 | user_id     | integer   | not null, indexed     |
 | group_id    | integer   | not null, indexed     |
-
-## debts
-| Column Name | Data Type | Details               |
-|------------:|-----------|-----------------------|
-| id          | integer   | not null, primary key |
-| amount      | decimal   | not null              |
-| debtor_id   | integer   | not null, indexed     |
-| creditor_id | integer   | not null, indexed     |
