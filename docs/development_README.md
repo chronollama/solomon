@@ -4,7 +4,7 @@
 [Trello][trello]
 
 [heroku]: https://www.heroku.com/
-[trello]:
+[trello]: https://trello.com/b/X69sn8Qe/solomon-splitwise-clone
 
 ## Minimum Viable Product
 Solomon is a clone of Splitwise, a web app designed to record shared expenses. Minimum features include:
