@@ -2,26 +2,29 @@
 {
   currentUser: {
     id: 1,
-    username: "bobbington"
+    name: 'bobbington',
+    email: 'bobbington@gmail.com'
   },
   friends: {
     2: {
       id: 2,
-      username: "Queen Elizabeth"
+      name: 'Queen Elizabeth',
+      email: 'corgis@england.co.uk'
     },
     3: {
       id: 3,
-      username: "Chewbacca"
+      name: 'Chewbacca',
+      email: 'GRRAAAAWGH@gmail.com'
     }
   },
   groups: {
     1: {  
       id: 1,
-      name: "Trojans"
+      name: 'Trojans'
     },
     2: {
       id: 2,
-      name: "Greeks"
+      name: 'Greeks'
     },
   },
   debts: {

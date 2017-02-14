@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  username        :string           not null
+#  name            :string           not null
 #  email           :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
@@ -12,15 +12,15 @@
 #
 
 class User < ActiveRecord::Base
-  validates :username, :session_token, presence: true, uniqueness: true
-  validates :password_digest, presence: true
+  validates :email, :session_token, presence: true, uniqueness: true
+  validates :password_digest, :name, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
   before_validation :ensure_session_token
-  
+
   attr_reader :password
 
-  def self.find_by_credentials(username, password)
-    user = User.find_by(username: username)
+  def self.find_by_credentials(email, password)
+    user = User.find_by(email: email)
     if user && user.is_password?(password)
       user
     else

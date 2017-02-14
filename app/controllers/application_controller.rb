@@ -24,6 +24,6 @@ class ApplicationController < ActionController::Base
 
   # TODO: should this be private/protected? Users and Sessions controllers need to inherit
   def user_params
-    params.require(:user).permit(:username, :password, :email)
+    params.require(:user).permit(:email, :password, :name)
   end
 end

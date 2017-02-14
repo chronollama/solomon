@@ -4,8 +4,8 @@
 |     Column Name | Data Type | Details                   |
 |----------------:|-----------|---------------------------|
 | id              | integer   | not null, primary key     |
-| username        | string    | not null, unique, indexed |
 | email           | string    | not null, unique, indexed |
+| name            | string    | not null                  |
 | password_digest | string    | not null                  |
 | session_token   | string    | not null, unique, indexed |
 
