@@ -45,10 +45,10 @@
 
 ### Comments
 
-- `POST /api/:user_id/comments`
-- `PATCH /api/:user_id/comments/:id`
-- `GET /api/:user_id/comments/:id`
-- `DELETE /api/:user_id/comments/:id`
+- `POST /api/comments`
+- `PATCH /api/comments/:id`
+- `GET /api/comments/:id`
+- `DELETE /api/comments/:id`
 
 ### Transactions
 - `POST /api/:debt_id/transactions`

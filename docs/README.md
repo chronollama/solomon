@@ -30,14 +30,14 @@ Solomon is a clone of Splitwise, a web app designed to record shared expenses. M
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication (2 days)
+### Phase 1: User Model and Authentication (2 days)
 **Objective:** Back-end and front-end authentication complete.
 
 ### Phase 2: Friend Association and Invitation (1 day)
 **Objective:** Other users may be added or removed as friends, causing list of friends to update.
 
-### Phase 3: Bills Model (2 days)
-**Objective:** Bills may be created, edited, viewed, or removed by associated parties.
+### Phase 3: Bills Model and Simplifying Debts (2 days)
+**Objective:** Bills may be created, edited, viewed, or removed by associated parties with option to simplify debts.
 
 ### Phase 4: Transactions (2 days)
 **Objective:** Transactions can be recorded and displayed. Bills can be marked as settled.
