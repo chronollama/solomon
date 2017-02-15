@@ -3,7 +3,7 @@
 [Heroku][heroku]
 [Trello][trello]
 
-[heroku]: https://www.heroku.com/
+[heroku]: https://solomon-app.herokuapp.com/#/
 [trello]: https://trello.com/b/X69sn8Qe/solomon-splitwise-clone
 
 ## Minimum Viable Product
