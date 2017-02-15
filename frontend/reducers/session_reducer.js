@@ -1,26 +1,26 @@
 import { RECEIVE_CURRENT_USER, RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/session_actions';
 
-const _defaultState = {currentUser: null, errors: []};
+const defaultState = {currentUser: null, errors: []};
+// NOT GLOBAL STATE. SLICE OF STATE GIVEN BY ROOT REDUCER
+// const defaultState = {session: {currentUser: null, errors: []}};
 
-const sessionReducer = (state = _defaultState, action) => {
+const SessionReducer = (state = defaultState, action) => {
   Object.freeze(state);
-  let newState = Object.assign({}, state);
-
+  let copy = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      newState.currentUser = action.currentUser;
-      newState.errors = [];
-      return newState;
+      copy.currentUser = action.currentUser;
+      copy.errors = [];
+      return copy;
     case RECEIVE_ERRORS:
-      newState.currentUser = null;
-      newState.errors = action.errors;
-      return newState;
+      copy.errors = action.errors;
+      return copy;
     case CLEAR_ERRORS:
-      newState.errors = [];
-      return newState;
+      copy.errors = [];
+      return copy;
     default:
       return state;
   }
 };
 
-export default sessionReducer;
+export default SessionReducer;

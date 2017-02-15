@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../actions/session_actions';
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ logout }) => {
   return (
-    <ul id='profile-dropdown' className='profile-dropdown hidden'>
+    <ul id='profile-dropdown' className='dropdown hidden'>
       <li>Your account</li>
       <li>Create a group</li>
       <li>Fairness calculators</li>
-      <li>Log out</li>
+      <li onClick={logout}>Log out</li>
     </ul>
   );
 };
@@ -27,7 +27,7 @@ const Header = ({currentUser, logout}) => {
         <h3>Welcome, {currentUser.name}!</h3>
         <ul>
           <li><Link to='/'>Solomon</Link></li>
-          <li id='profile-dropdown-btn'><ProfileDropdown /></li>
+          <li id='profile-dropdown-btn'><ProfileDropdown logout={logout}/></li>
         </ul>
       </header>
     );
@@ -46,7 +46,7 @@ const Header = ({currentUser, logout}) => {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.session.currentUser
   };
 };
 
