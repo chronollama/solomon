@@ -1,9 +1,12 @@
 ```js
 {
-  currentUser: {
-    id: 1,
-    name: 'bobbington',
-    email: 'bobbington@gmail.com'
+  session: {
+    currentUser: {
+      id: 1,
+      name: 'bobbington',
+      email: 'bobbington@gmail.com'
+    },
+    errors: []
   },
   friends: {
     2: {
@@ -40,9 +43,6 @@
       amount: 5.00,
       debtor_id: 3
     }
-  },
-  errors: {
-    base: {}
   }
 }
 ```
