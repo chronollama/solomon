@@ -27,34 +27,40 @@ class Header extends React.Component {
   }
 
   toggleLogin() {
-    if (this.state.hiddenLogin) {
-      this.setState({hiddenLogin: false})
-    } else {
-      this.setState({hiddenLogin: true})
-    }
+    this.setState({hiddenLogin: !this.state.hiddenLogin})
   }
 
   render() {
     const {currentUser, logout} = this.props
     if (currentUser) {
       return (
-        <header>
-          <h3>Welcome, {currentUser.name}!</h3>
-          <ul>
-            <li><Link to='/'>Solomon</Link></li>
-            <li id='profile-dropdown-btn'><ProfileDropdown logout={logout}/></li>
-          </ul>
+        <header className='header'>
+          <div className='header-flex'>
+            <a href='/'>Solomon</a>
+            <button id='profile-dropdown' className='btn'>
+              <ProfileDropdown logout={logout}/>
+            </button>
+          </div>
         </header>
       );
     }
 
     return (
-      <header>
-        <ul>
-          <li><Link to='/'>Solomon</Link></li>
-          <li><button onClick={this.toggleLogin}>Login</button></li>
-          <li><button onClick={() => hashHistory.push('/signup')}>Sign up</button></li>
-        </ul>
+      <header className ='header'>
+        <div className='header-flex'>
+          <a href='/'>Solomon</a>
+          <ul id='login-bar'>
+            <li id='login-btn' className='btn btn-mint'>
+              <button onClick={this.toggleLogin}>Log in</button>
+            </li>
+
+            <li>or</li>
+
+            <li id='signup-btn' className='btn btn-orange'>
+              <button onClick={() => hashHistory.push('/signup')}>Sign up</button>
+            </li>
+          </ul>
+        </div>
 
         <LoginForm hidden={this.state.hiddenLogin}/>
       </header>

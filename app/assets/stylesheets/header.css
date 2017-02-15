@@ -1,0 +1,60 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #5bc5a7;
+  z-index: 99;
+  border-bottom: 1px solid #48be9d;
+  color: #fff;
+  text-shadow: 0 -1px 0 #39a385;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  padding: 0 10px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.header .header-flex {
+  height: 48px;
+}
+
+.header-flex > * {
+  padding: 17px 10px;
+}
+
+#login-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 125px;
+  vertical-align: middle;
+}
+
+
+.btn {
+  font-size: 14px;
+  display: inline-block;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  text-align: center;
+  line-height: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-mint {
+  background: #5bc5a7;
+  color: #fff;
+  text-shadow: 0 -1px 0 #318970;
+}
+
+.btn-orange {
+  background: #ff652f;
+  color: #fff;
+  text-shadow: 0 -1px 0 #c83400;
+}
