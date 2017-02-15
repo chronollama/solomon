@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
 import { login, receiveErrors } from '../../actions/session_actions';
@@ -30,15 +31,15 @@ class LoginDropdown extends React.Component {
 
   // TODO: figure out what to do with errors here
   render() {
-    if (this.props.hidden) {
-      return (
-        <div></div>
-      );
-    }
+    // if (this.props.hidden) {
+    //   return (
+    //     <div></div>
+    //   );
+    // }
 
-    return (
+    const loginForm = (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form key='login' onSubmit={this.handleSubmit}>
           <input type='text' onChange={this.handleInput('email')}
             value={this.state.email} placeholder='Email address'/>
           <input type='password' onChange={this.handleInput('password')}
@@ -47,6 +48,17 @@ class LoginDropdown extends React.Component {
         </form>
       </div>
     );
+
+    return (
+        <ReactCSSTransitionGroup component="form"
+          transitionName="sliding-dropdown"
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={1000}>
+          {loginForm}
+        </ReactCSSTransitionGroup>
+    );
+
+
   }
 }
 

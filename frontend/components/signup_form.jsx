@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { signup, receiveErrors } from '../actions/session_actions';
 import { Link, hashHistory } from 'react-router';
