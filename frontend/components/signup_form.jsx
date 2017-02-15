@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, signup, clearErrors } from '../actions/session_actions';
-import { Link } from 'react-router';
+import { signup, receiveErrors } from '../actions/session_actions';
+import { Link, hashHistory } from 'react-router';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -23,8 +23,10 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signup(this.state)
-      .then(this.setState({name: '', email: '', password: ''}));
+    this.props.signup(this.state).then(
+      () => hashHistory.push('/'),
+      (err) => dispatch(receiveErrors(err))
+    );
   }
 
   render() {
@@ -75,7 +77,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signup: (user) => dispatch(signup(user)),
-    clearErrors: () => dispatch(clearErrors())
   };
 };
 

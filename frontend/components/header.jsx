@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { logout } from '../actions/session_actions';
+import LoginForm from './login_form';
 
 const ProfileDropdown = ({ logout }) => {
   return (
@@ -14,35 +15,52 @@ const ProfileDropdown = ({ logout }) => {
   );
 };
 
-const LoginDropdown = () => {
-  return (
-    <form id='login-dropdown' className='hidden'></form>
-  );
-};
+// TODO:toggleClass, look up AA Times solution. Toggle 'hidden' to reveal
+// form. <li> buttons in Header
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hiddenLogin: true
+    };
+    this.toggleLogin = this.toggleLogin.bind(this);
+  }
 
-const Header = ({currentUser, logout}) => {
-  if (currentUser) {
+  toggleLogin() {
+    if (this.state.hiddenLogin) {
+      this.setState({hiddenLogin: false})
+    } else {
+      this.setState({hiddenLogin: true})
+    }
+  }
+
+  render() {
+    const {currentUser, logout} = this.props
+    if (currentUser) {
+      return (
+        <header>
+          <h3>Welcome, {currentUser.name}!</h3>
+          <ul>
+            <li><Link to='/'>Solomon</Link></li>
+            <li id='profile-dropdown-btn'><ProfileDropdown logout={logout}/></li>
+          </ul>
+        </header>
+      );
+    }
+
     return (
       <header>
-        <h3>Welcome, {currentUser.name}!</h3>
         <ul>
           <li><Link to='/'>Solomon</Link></li>
-          <li id='profile-dropdown-btn'><ProfileDropdown logout={logout}/></li>
+          <li><button onClick={this.toggleLogin}>Login</button></li>
+          <li><button onClick={() => hashHistory.push('/signup')}>Sign up</button></li>
         </ul>
+
+        <LoginForm hidden={this.state.hiddenLogin}/>
       </header>
     );
   }
-
-  return (
-    <header>
-      <ul>
-        <li><Link to='/'>Solomon</Link></li>
-        <li id='login-dropdown-btn'><button>Login</button></li>
-        <li><Link to='/signup'>Sign up</Link></li>
-      </ul>
-    </header>
-  );
-};
+}
 
 const mapStateToProps = state => {
   return {
