@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
-import { logout } from '../../actions/session_actions';
+import { logout, login } from '../../actions/session_actions';
 import LoginDropdown from './login_dropdown';
 import ProfileDropdown from './profile_dropdown';
 
@@ -12,6 +12,7 @@ class Header extends React.Component {
       hidden: true
     };
     this.toggleHidden = this.toggleHidden.bind(this);
+    this.login = this.props.login.bind(this, {email: 'guest@solomon.com', password: 'solomon'});
   }
 
   toggleHidden() {
@@ -40,6 +41,11 @@ class Header extends React.Component {
           <div className='login-bar'>
             <button id='login-btn'
               className='btn btn-login'
+              onClick={this.login}>Guest
+            </button>
+
+            <button id='login-btn'
+              className='btn btn-login'
               onClick={this.toggleHidden}>Log in
             </button>
 
@@ -66,7 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    login: (user) => dispatch(login(user))
   };
 };
 

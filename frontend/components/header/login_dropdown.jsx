@@ -31,31 +31,32 @@ class LoginDropdown extends React.Component {
 
   // TODO: figure out what to do with errors here
   render() {
-    // if (this.props.hidden) {
-    //   return (
-    //     <div></div>
-    //   );
-    // }
+    if (this.props.hidden) {
+      return (
+        <div></div>
+      );
+    }
 
     const loginForm = (
-      <div>
-        <form key='login' onSubmit={this.handleSubmit}>
-          <input type='text' onChange={this.handleInput('email')}
-            value={this.state.email} placeholder='Email address'/>
-          <input type='password' onChange={this.handleInput('password')}
-            value={this.state.password} placeholder='Password'/>
-          <input type='submit' value='Log in to Solomon'/>
-        </form>
-      </div>
+      <form key='login' onSubmit={this.handleSubmit}>
+        <input type='text' onChange={this.handleInput('email')}
+          value={this.state.email} placeholder='Email address'/>
+        <input type='password' onChange={this.handleInput('password')}
+          value={this.state.password} placeholder='Password'/>
+        <input type='submit' value='Log in to Solomon'/>
+      </form>
     );
 
     return (
-        <ReactCSSTransitionGroup component="form"
+      <div>
+
+        <ReactCSSTransitionGroup component="div"
           transitionName="sliding-dropdown"
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}>
           {loginForm}
         </ReactCSSTransitionGroup>
+      </div>
     );
 
 
