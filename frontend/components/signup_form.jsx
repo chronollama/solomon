@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { signup, receiveErrors } from '../actions/session_actions';
 import { Link, hashHistory } from 'react-router';
 
+
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -25,44 +26,64 @@ class SignupForm extends React.Component {
     e.preventDefault();
     this.props.signup(this.state).then(
       () => hashHistory.push('/'),
-      (err) => dispatch(receiveErrors(err))
+      (err) => receiveErrors(err)
     );
   }
 
-  render() {
-    let errors;
-    if (this.props.errors) {
-      errors = this.props.errors.map((error, idx) => {
-        return (
-          <li key={idx}>{error}</li>
-        );
+  showErrors() {
+    if (this.props.errors.length !== 0) {
+      const errors = this.props.errors.map((error, idx) => {
+        return (<li key={idx}>{error}</li>);
       });
-    }
+
+      return (
+        <div>
+          <strong>The following errors occurred:</strong>
+          <ul>{errors}</ul>
+        </div>
+      );
+    } else {
+      return (<div></div>);
+  }
+}
+
+  render() {
+
 
     return (
-      <div>
-        <h1>Introduce Yourself</h1>
+      <div className='wrapper'>
+        <div className='signup-container'>
+          <div className='content-block'>
 
-        <ul>{errors}</ul>
+            <div>INTRODUCE YOURSELF</div>
+            {this.showErrors()}
 
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Hi there! My name is
-            <input type='text' onChange={this.handleInput('name')} value={this.state.name}/>
-          </label>
+            <form className='signup-form' onSubmit={this.handleSubmit}>
+              <div className='signup-label'>
+                Hi there! My name is
+              </div>
+              <input className='input signup-field signup-name' type='text'
+                onChange={this.handleInput('name')} value={this.state.name}/>
 
-          <label>
-            Here's my email address:
-            <input type='text' onChange={this.handleInput('email')} value={this.state.email}/>
-          </label>
+              <div className='signup-label'>
+                Here's my <strong>email address:</strong>
+              </div>
+              <input className='input signup-field' type='text'
+                onChange={this.handleInput('email')} value={this.state.email}/>
 
-          <label>
-            And here's my password:
-            <input type='password' onChange={this.handleInput('password')} value={this.state.password}/>
-          </label>
+              <div className='signup-label'>
+                And here's <strong>my password:</strong>
+              </div>
+              <input className='input signup-field' type='password'
+                onChange={this.handleInput('password')} value={this.state.password}/>
 
-          <input type='submit' value='Sign me up!'/>
-        </form>
+              <div>
+                <input className='btn btn-signup btn-large' type='submit' value='Sign me up!'/>
+              </div>
+            </form>
+
+          </div>
+        </div>
       </div>
     );
   }
@@ -77,6 +98,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signup: (user) => dispatch(signup(user)),
+    receiveErrors: (err) => dispatch(receiveErrors(err))
   };
 };
 

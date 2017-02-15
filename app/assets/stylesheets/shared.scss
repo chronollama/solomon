@@ -1,0 +1,55 @@
+.wrapper {
+  margin: 0 0 -114px;
+  min-height: 100%;
+  height: auto !important;
+  display: flex;
+}
+
+.content-block {
+  margin: auto;
+}
+
+.btn {
+  font-size: 14px;
+  display: inline-block;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  text-align: center;
+  line-height: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 60px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+
+.btn-login {
+  background: #5bc5a7;
+  color: #fff;
+  text-shadow: 0 -1px 0 #318970;
+  margin-right: 4px;
+  margin-left: 5px;
+}
+
+.btn-signup {
+  background: #ff652f;
+  color: #fff;
+  text-shadow: 0 -1px 0 #c83400;
+  margin-left: 5px;
+}
+
+.btn-large {
+  padding: 11px 15px;
+  margin-top: 9px;
+  font-size: 24px;
+  width: auto;
+  display: inline-block;
+}
+
+.input {
+  border: 1px solid gray;
+  border-radius: 3px;
+}
+
+strong {
+  font-weight: bold;
+}
