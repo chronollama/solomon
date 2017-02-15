@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, receiveErrors } from '../actions/session_actions';
 import { Link, hashHistory } from 'react-router';
+import { login, receiveErrors } from '../../actions/session_actions';
 
-class LoginForm extends React.Component {
+class LoginDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginDropdown);
