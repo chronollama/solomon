@@ -55,10 +55,7 @@ class Header extends React.Component {
               onClick={this.login}>Guest
             </button>
 
-            <button id='login-btn'
-              className='btn btn-login'
-              onClick={this.toggleHidden('hiddenLogin')}>Log in
-            </button>
+            <LoginDropdown />
 
             <span>or</span>
 
@@ -69,7 +66,6 @@ class Header extends React.Component {
           </div>
         </div>
 
-        <LoginDropdown hidden={this.state.hiddenLogin}/>
       </header>
     );
   }

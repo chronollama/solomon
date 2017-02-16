@@ -1,0 +1,19 @@
+.dropdown-enter {
+  max-height: 0;
+  transition: max-height 500ms ease;
+  overflow: hidden;
+}
+
+.dropdown-enter.dropdown-enter-active {
+  height: auto;
+  max-height: 100px;
+}
+
+.dropdown-leave {
+  max-height: 100px;
+  transition: max-height 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.dropdown-leave.dropdown-leave-active {
+  overflow: hidden;
+  max-height: 0;
+}

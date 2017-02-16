@@ -9,10 +9,12 @@ class LoginDropdown extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      dropdownActive: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   handleInput(property) {
@@ -23,43 +25,52 @@ class LoginDropdown extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.login(this.state).then(
+    const userCredentials = {email: this.state.email, password: this.state.password};
+    this.props.login(userCredentials).then(
       () => hashHistory.push('/'),
       (err) => receiveErrors(err)
     );
   }
 
+  toggleDropdown() {
+    let dropdownState = !this.state.dropdownActive;
+    this.setState({dropdownActive: dropdownState});
+  }
+
   // TODO: figure out what to do with errors here
   render() {
-    if (this.props.hidden) {
-      return (
-        <div></div>
-      );
+    let dropdown;
+    if (this.state.dropdownActive) {
+      dropdown = (
+        <form id='login-form' onSubmit={this.handleSubmit}>
+          <input className='input-text login-field' type='text'
+            onChange={this.handleInput('email')}
+            value={this.state.email} placeholder='Email address'/>
+
+          <input className='input-text login-field' type='password'
+            onChange={this.handleInput('password')}
+            value={this.state.password} placeholder='Password'/>
+
+          <input className= 'btn btn-login btn-long' type='submit' value='Log in to Solomon'/>
+        </form>
+      )
+    } else {
+      dropdown = '';
     }
 
-    const loginForm = (
-      <form key='login' onSubmit={this.handleSubmit}>
-        <input type='text' onChange={this.handleInput('email')}
-          value={this.state.email} placeholder='Email address'/>
-        <input type='password' onChange={this.handleInput('password')}
-          value={this.state.password} placeholder='Password'/>
-        <input type='submit' value='Log in to Solomon'/>
-      </form>
-    );
-
     return (
-      <div>
-
+      <div id='login-btn-container'>
+        <button className='btn btn-login'
+          onClick={this.toggleDropdown}>Log in
+        </button>
         <ReactCSSTransitionGroup component="div"
-          transitionName="sliding-dropdown"
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={1000}>
-          {loginForm}
+          transitionName='dropdown'
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {dropdown}
         </ReactCSSTransitionGroup>
       </div>
-    );
-
-
+    )
   }
 }
 

@@ -1,14 +1,3 @@
-.wrapper {
-  margin: 0 0 -114px;
-  min-height: 100%;
-  height: auto !important;
-  display: flex;
-}
-
-.content-block {
-  margin: auto;
-}
-
 .btn {
   font-size: 14px;
   display: inline-block;
@@ -46,11 +35,6 @@
   display: inline-block;
 }
 
-.input {
-  border: 1px solid gray;
-  border-radius: 3px;
-}
-
-strong {
-  font-weight: bold;
+.btn-long {
+  width: auto;
 }

@@ -6,9 +6,10 @@ const ProfileDropdown = ({ hidden, logout }) => {
       <div></div>
     )
   }
+  // TODO: dropdown transition
 
   return (
-    <ul id='profile-dropdown' className='dropdown hidden'>
+    <ul id='profile-dropdown'>
       <li>Your account</li>
       <li>Create a group</li>
       <li>Fairness calculators</li>

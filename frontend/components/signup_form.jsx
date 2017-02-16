@@ -63,19 +63,19 @@ class SignupForm extends React.Component {
               <div className='signup-label'>
                 Hi there! My name is
               </div>
-              <input className='input signup-field signup-name' type='text'
+              <input className=' signup-field signup-name input-text' type='text'
                 onChange={this.handleInput('name')} value={this.state.name}/>
 
               <div className='signup-label'>
                 Here's my <strong>email address:</strong>
               </div>
-              <input className='input signup-field' type='text'
+              <input className='signup-field input-text' type='text'
                 onChange={this.handleInput('email')} value={this.state.email}/>
 
               <div className='signup-label'>
                 And here's <strong>my password:</strong>
               </div>
-              <input className='input signup-field' type='password'
+              <input className='signup-field input-text' type='password'
                 onChange={this.handleInput('password')} value={this.state.password}/>
 
               <div>
