@@ -17,3 +17,26 @@
   overflow: hidden;
   max-height: 0;
 }
+
+.instant-dropdown {
+  position: absolute;
+  top: 32px;
+  right: 10px;
+  padding: 2px;
+  z-index: 99999;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.instant-dropdown > li {
+  color: #333;
+  padding: 4px 28px 4px 12px;
+  text-align: left;
+}
+
+.instant-dropdown > li:hover {
+  background: #5bc5a7;
+  color: #fff;
+}

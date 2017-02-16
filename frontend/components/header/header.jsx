@@ -36,7 +36,7 @@ class Header extends React.Component {
         <header className='header'>
           <div className='header-flex'>
             <a href='/'>Solomon</a>
-            <button id='profile-dropdown' className='btn' onClick={this.toggleHidden('hiddenProfile')}>
+            <button id='btn-profile' className='btn' onClick={this.toggleHidden('hiddenProfile')}>
               {currentUser.name}
               <ProfileDropdown hidden={this.state.hiddenProfile} logout={logout}/>
             </button>

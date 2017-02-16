@@ -52,34 +52,34 @@ class SignupForm extends React.Component {
 
 
     return (
-      <div className='wrapper'>
-        <div className='signup-container'>
-          <div className='content-block'>
+      <div className="wrapper">
+        <div className="signup-container">
+          <div className="content-block">
 
             <div>INTRODUCE YOURSELF</div>
             {this.showErrors()}
 
-            <form className='signup-form' onSubmit={this.handleSubmit}>
-              <div className='signup-label'>
+            <form className="signup-form" onSubmit={this.handleSubmit}>
+              <div className="signup-label">
                 Hi there! My name is
               </div>
-              <input className=' signup-field signup-name input-text' type='text'
-                onChange={this.handleInput('name')} value={this.state.name}/>
+              <input className="signup-field signup-name input-text" type="text"
+                onChange={this.handleInput("name")} value={this.state.name}/>
 
-              <div className='signup-label'>
-                Here's my <strong>email address:</strong>
+              <div className="signup-label">
+                Here&#39;s my <strong>email address:</strong>
               </div>
-              <input className='signup-field input-text' type='text'
-                onChange={this.handleInput('email')} value={this.state.email}/>
+              <input className="signup-field input-text" type="text"
+                onChange={this.handleInput("email")} value={this.state.email}/>
 
-              <div className='signup-label'>
-                And here's <strong>my password:</strong>
+              <div className="signup-label">
+                And here&#39;s <strong>my password:</strong>
               </div>
-              <input className='signup-field input-text' type='password'
-                onChange={this.handleInput('password')} value={this.state.password}/>
+              <input className="signup-field input-text" type="password"
+                onChange={this.handleInput("password")} value={this.state.password}/>
 
               <div>
-                <input className='btn btn-signup btn-large' type='submit' value='Sign me up!'/>
+                <input className="btn btn-signup btn-large" type="submit" value="Sign me up!"/>
               </div>
             </form>
 
