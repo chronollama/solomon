@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { logout, login } from '../../actions/session_actions';
 import LoginDropdown from './login_dropdown';
 import ProfileDropdown from './profile_dropdown';

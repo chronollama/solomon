@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
-import { Link, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { login, receiveErrors } from '../../actions/session_actions';
 
 class LoginDropdown extends React.Component {
@@ -28,7 +28,7 @@ class LoginDropdown extends React.Component {
     const userCredentials = {email: this.state.email, password: this.state.password};
     this.props.login(userCredentials).then(
       () => hashHistory.push('/'),
-      (err) => receiveErrors(err)
+      () => hashHistory.push('/login')
     );
   }
 
@@ -42,12 +42,12 @@ class LoginDropdown extends React.Component {
     let dropdown;
     if (this.state.dropdownActive) {
       dropdown = (
-        <form id='login-form' onSubmit={this.handleSubmit}>
-          <input className='input-text login-field' type='text'
+        <form id='login-dropdown' onSubmit={this.handleSubmit}>
+          <input className='input-text login-dropdown-field' type='text'
             onChange={this.handleInput('email')}
             value={this.state.email} placeholder='Email address'/>
 
-          <input className='input-text login-field' type='password'
+          <input className='input-text login-dropdown-field' type='password'
             onChange={this.handleInput('password')}
             value={this.state.password} placeholder='Password'/>
 
@@ -83,7 +83,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     login: (user) => dispatch(login(user)),
-    receiveErrors: (err) => dispatch(login(user))
+    receiveErrors: (err) => dispatch(receiveErrors(user))
   };
 };
 

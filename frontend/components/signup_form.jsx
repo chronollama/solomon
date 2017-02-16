@@ -2,7 +2,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { signup, receiveErrors } from '../actions/session_actions';
-import { Link, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 
 class SignupForm extends React.Component {
@@ -49,11 +49,11 @@ class SignupForm extends React.Component {
 }
 
   render() {
-
+    // TODO: Are all these divs necessary?
 
     return (
       <div className="wrapper">
-        <div className="signup-container">
+        <div className="form-container-large">
           <a className="logo-large" href="/" value>Logo to redirect home</a>
 
           <div className="content-block">
@@ -61,7 +61,7 @@ class SignupForm extends React.Component {
             <div>INTRODUCE YOURSELF</div>
             {this.showErrors()}
 
-            <form className="signup-form" onSubmit={this.handleSubmit}>
+            <form className="form-large" onSubmit={this.handleSubmit}>
               <div className="signup-label">
                 Hi there! My name is
               </div>

@@ -21,7 +21,7 @@
 }
 
 .btn-login:hover {
-  background: mediumseagreen;
+  background-color: darken(#5bc5a7, 5%);
 }
 
 .btn-signup {
@@ -29,6 +29,10 @@
   color: #fff;
   text-shadow: 0 -1px 0 #c83400;
   margin-left: 5px;
+}
+
+.btn-signup:hover {
+  background-color: darken(#ff652f, 5%);
 }
 
 .btn-large {
@@ -49,4 +53,15 @@
 
 .btn-profile:hover {
   background: mediumseagreen;
+}
+
+#btn-login-large {
+  background: #ff652f;
+  color: #fff;
+  text-shadow: 0 -1px 0 #318970;
+  font-size: 18px;
+}
+
+#btn-login-large:hover {
+  background-color: darken(#ff652f, 5%);
 }
