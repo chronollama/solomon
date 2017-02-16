@@ -20,6 +20,10 @@
   margin-left: 5px;
 }
 
+.btn-login:hover {
+  background: mediumseagreen;
+}
+
 .btn-signup {
   background: #ff652f;
   color: #fff;
@@ -41,4 +45,8 @@
 
 .btn-profile {
   position: relative;
+}
+
+.btn-profile:hover {
+  background: mediumseagreen;
 }

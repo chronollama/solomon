@@ -21,7 +21,7 @@
 }
 
 .header-flex a {
-  padding-top: 14px;
+  align-self: center
 }
 
 .header-flex .login-bar {
@@ -32,4 +32,9 @@
 
 .header-flex .login-bar span {
   padding-top: 3px;
+}
+
+#btn-profile {
+  padding-top: 7px;
+  padding-bottom: 6px;
 }
