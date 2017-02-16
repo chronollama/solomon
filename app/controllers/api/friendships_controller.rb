@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
 
   # TODO: should this be params[:id] or nested params[:friend][:id]
   def create
-    @user = User.find_by(email: friend_params)
+    @user = User.find_by(friend_params)
     if @user
       @friendship = Friendship.new(user_id: current_user.id, friend_id: @user.id)
       if @friendship.save
