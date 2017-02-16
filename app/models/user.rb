@@ -14,10 +14,16 @@
 class User < ActiveRecord::Base
   validates :email, :session_token, presence: true, uniqueness: true
   validates :password_digest, :name, presence: true
-  validates :password, length: { minimum: 6, allow_nil: true }
+  validates :password, length: { minimum: 6, allow_nil: true,
+    message: "Password must have a minimum length of 6 characters"}
   before_validation :ensure_session_token
 
   attr_reader :password
+
+
+  def friends
+
+  end
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
