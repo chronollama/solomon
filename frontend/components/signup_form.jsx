@@ -45,8 +45,8 @@ class SignupForm extends React.Component {
       );
     } else {
       return (<div></div>);
+    }
   }
-}
 
   render() {
     // TODO: Are all these divs necessary?

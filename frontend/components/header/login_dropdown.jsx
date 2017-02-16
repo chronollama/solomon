@@ -28,7 +28,10 @@ class LoginDropdown extends React.Component {
     const userCredentials = {email: this.state.email, password: this.state.password};
     this.props.login(userCredentials).then(
       () => hashHistory.push('/'),
-      () => hashHistory.push('/login')
+      () => {
+        this.setState({dropdownActive: false});
+        hashHistory.push('/login');
+      }
     );
   }
 

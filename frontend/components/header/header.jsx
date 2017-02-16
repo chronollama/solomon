@@ -65,7 +65,6 @@ class Header extends React.Component {
             </button>
           </div>
         </div>
-
       </header>
     );
   }
@@ -73,7 +72,7 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
   };
 };
 

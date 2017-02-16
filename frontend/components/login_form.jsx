@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signup(this.state).then(
+    this.props.login(this.state).then(
       () => hashHistory.push('/'),
       (err) => receiveErrors(err)
     );
@@ -35,7 +35,7 @@ class LoginForm extends React.Component {
         <div className="form-container-large">
           <a className="logo-large" href="/" value>Logo to redirect home</a>
 
-          <div className="content-block">
+          <div className="content-block login-large">
 
             <div>WELCOME TO SOLOMON</div>
 
@@ -67,13 +67,14 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-
+    errors: state.session.errors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    login: (user) => dispatch(login(user)),
+    receiveErrors: (err) => dispatch(receiveErrors(err))
   };
 };
 
