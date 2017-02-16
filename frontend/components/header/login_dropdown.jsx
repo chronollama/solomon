@@ -25,7 +25,7 @@ class LoginDropdown extends React.Component {
     e.preventDefault();
     this.props.login(this.state).then(
       () => hashHistory.push('/'),
-      (err) => dispatch(receiveErrors(err))
+      (err) => receiveErrors(err)
     );
   }
 
@@ -72,6 +72,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     login: (user) => dispatch(login(user)),
+    receiveErrors: (err) => dispatch(login(user))
   };
 };
 

@@ -9,14 +9,24 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: true
+      hiddenLogin: true,
+      hiddenProfile: true
     };
     this.toggleHidden = this.toggleHidden.bind(this);
     this.login = this.props.login.bind(this, {email: 'guest@solomon.com', password: 'solomon'});
   }
 
-  toggleHidden() {
-    this.setState({hidden: !this.state.hidden});
+  toggleHidden(property) {
+    let hiddenStatus;
+    if (property === 'hiddenLogin') {
+      hiddenStatus = !this.state.hiddenLogin;
+    } else {
+      hiddenStatus = !this.state.hiddenProfile;
+    }
+
+    return () => {
+      this.setState({[property]: hiddenStatus});
+    };
   }
 
   render() {
@@ -26,8 +36,9 @@ class Header extends React.Component {
         <header className='header'>
           <div className='header-flex'>
             <a href='/'>Solomon</a>
-            <button id='profile-dropdown' className='btn' onClick={this.toggleHidden}>
-              <ProfileDropdown hidden={this.state.hidden} logout={logout}/>
+            <button id='profile-dropdown' className='btn' onClick={this.toggleHidden('hiddenProfile')}>
+              {currentUser.name}
+              <ProfileDropdown hidden={this.state.hiddenProfile} logout={logout}/>
             </button>
           </div>
         </header>
@@ -46,7 +57,7 @@ class Header extends React.Component {
 
             <button id='login-btn'
               className='btn btn-login'
-              onClick={this.toggleHidden}>Log in
+              onClick={this.toggleHidden('hiddenLogin')}>Log in
             </button>
 
             <span>or</span>
@@ -58,7 +69,7 @@ class Header extends React.Component {
           </div>
         </div>
 
-        <LoginDropdown hidden={this.state.hidden}/>
+        <LoginDropdown hidden={this.state.hiddenLogin}/>
       </header>
     );
   }
