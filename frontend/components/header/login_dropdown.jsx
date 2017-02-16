@@ -65,8 +65,8 @@ class LoginDropdown extends React.Component {
         </button>
         <ReactCSSTransitionGroup component="div"
           transitionName='dropdown'
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}>
           {dropdown}
         </ReactCSSTransitionGroup>
       </div>

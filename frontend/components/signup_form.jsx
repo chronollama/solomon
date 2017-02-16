@@ -54,6 +54,8 @@ class SignupForm extends React.Component {
     return (
       <div className="wrapper">
         <div className="signup-container">
+          <a className="logo-large" href="/" value>Logo to redirect home</a>
+
           <div className="content-block">
 
             <div>INTRODUCE YOURSELF</div>
