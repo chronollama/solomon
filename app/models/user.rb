@@ -20,9 +20,30 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
+  has_many :requested_friendships,
+    class_name: :Friendship,
+    primary_key: :id,
+    foreign_key: :user_id
+
+  has_many :received_friendships,
+    class_name: :Friendship,
+    primary_key: :id,
+    foreign_key: :friend_id
+
+  has_many :requested_friends,
+    through: :requested_friendships,
+    source: :friendee
+
+  has_many :received_friends,
+    through: :received_friendships,
+    source: :friender
 
   def friends
+    requested_friends + received_friends
+  end
 
+  def add_friend(friend_id)
+    Friendship.create!(user_id: id, friend_id: friend_id)
   end
 
   def self.find_by_credentials(email, password)

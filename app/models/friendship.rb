@@ -10,7 +10,9 @@
 #
 
 class Friendship < ActiveRecord::Base
-  # validates :friender, :friendee, presence: true;
+  validates :friender, presence: true
+  validates :friendee, presence: true
+
   validates :user_id, uniqueness: {scope: :friend_id,
     message: "You are already friends with that person."}
   validates :friend_id, uniqueness: {scope: :user_id,
