@@ -27,7 +27,7 @@ class LoginDropdown extends React.Component {
     e.preventDefault();
     const userCredentials = {email: this.state.email, password: this.state.password};
     this.props.login(userCredentials).then(
-      () => hashHistory.push('/'),
+      () => hashHistory.push('/dashboard'),
       () => {
         this.setState({dropdownActive: false});
         hashHistory.push('/login');
@@ -56,7 +56,7 @@ class LoginDropdown extends React.Component {
 
           <input className= 'btn btn-login btn-long' type='submit' value='Log in to Solomon'/>
         </form>
-      )
+      );
     } else {
       dropdown = '';
     }

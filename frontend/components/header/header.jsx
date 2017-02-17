@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { logout, login } from '../../actions/session_actions';
 import LoginDropdown from './login_dropdown';
 import ProfileDropdown from './profile_dropdown';
@@ -14,21 +14,35 @@ class Header extends React.Component {
       hiddenAlert: true
     };
     this.toggleProfileMenu = this.toggleProfileMenu.bind(this);
-    this.login = this.props.login.bind(this, {email: 'guest@solomon.com', password: 'solomon'});
+    this.guestLogin = this.guestLogin.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.errors.length > 0) {
+      this.setState({hiddenAlert: false});
+    }
   }
 
   toggleProfileMenu() {
     this.setState({hiddenProfile: !this.state.hiddenProfile});
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.errors.length > 0) {
-      this.setState({hiddenAlert: false})
-    }
+  guestLogin(e) {
+    e.preventDefault();
+    this.props.login({email: 'guest@solomon.com', password: 'solomon'}).then(
+      () => hashHistory.push('/dashboard')
+    );
+  }
+
+  logout() {
+    this.props.logout().then(
+      hashHistory.push('/')
+    );
   }
 
   render() {
-    const {currentUser, logout} = this.props;
+    const {currentUser} = this.props;
     if (currentUser) {
       return (
         <header className='header'>
@@ -36,7 +50,7 @@ class Header extends React.Component {
             <a href='/'>Solomon</a>
             <button id='btn-profile' className='btn' onClick={this.toggleProfileMenu}>
               {currentUser.name}
-              <ProfileDropdown hidden={this.state.hiddenProfile} logout={logout}/>
+              <ProfileDropdown hidden={this.state.hiddenProfile} logout={this.logout}/>
             </button>
           </div>
         </header>
@@ -50,7 +64,7 @@ class Header extends React.Component {
           <div className='login-bar'>
             <button id='login-btn'
               className='btn btn-login'
-              onClick={this.login}>Guest
+              onClick={this.guestLogin}>Guest
             </button>
 
             <LoginDropdown />

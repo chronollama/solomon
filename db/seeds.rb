@@ -7,6 +7,11 @@ user4 = User.create(email: 'bobbington', name: 'bobbington', password: 'bobbingt
 user5 = User.create(email: 'manhattan', name: 'manhattan', password: 'manhattan')
 user6 = User.create(email: 'brooklyn', name: 'brooklyn', password: 'brooklyn')
 
+Friendship.create(user_id: user1.id, friend_id: user2.id)
+Friendship.create(user_id: user1.id, friend_id: user3.id)
+Friendship.create(user_id: user1.id, friend_id: user4.id)
+Friendship.create(user_id: user1.id, friend_id: user5.id)
+Friendship.create(user_id: user1.id, friend_id: user6.id)
 Friendship.create(user_id: user2.id, friend_id: user3.id)
 Friendship.create(user_id: user2.id, friend_id: user4.id)
 Friendship.create(user_id: user2.id, friend_id: user5.id)
