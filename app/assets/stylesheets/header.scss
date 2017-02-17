@@ -14,10 +14,10 @@
 .header-flex {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  max-width: 960px;
   padding: 0 10px;
-  margin: 0 auto;
   position: relative;
+  margin: auto;
 }
 
 .header-flex a {

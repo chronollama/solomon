@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { Link } from 'react-router';
 import { logout, login } from '../../actions/session_actions';
 import LoginDropdown from './login_dropdown';
 import ProfileDropdown from './profile_dropdown';
@@ -57,9 +57,8 @@ class Header extends React.Component {
 
             <span>or</span>
 
-            <button id='signup-btn'
-              className='btn btn-signup'
-              onClick={() => hashHistory.push('/signup')}>Sign up
+            <button id='signup-btn' className='btn btn-signup'>
+              <Link to="/signup">Sign up</Link>
             </button>
           </div>
           <AlertBar hidden={this.state.hiddenAlert} source="login"/>

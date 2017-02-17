@@ -1,0 +1,32 @@
+#left-sidebar {
+  position: relative;
+  top: 34px;
+  padding-top: 14px;
+  padding-right: 20px;
+  width: 180px;
+  z-index: 3;
+  background: lightblue;
+  // TODO: remove this background color
+}
+
+#left-sidebar > div {
+  padding: 3px 8px 5px 5px;
+}
+
+.list-title {
+  background: #f6f6f6;
+  color: #ccc;
+}
+
+.friends-list {
+
+}
+
+.friends-list > li {
+  color: #999;
+}
+
+
+#no-friends {
+
+}

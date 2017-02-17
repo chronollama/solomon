@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
-import { login, receiveErrors } from '../actions/session_actions';
+import { login, receiveErrors } from '../../actions/session_actions';
 import { hashHistory } from 'react-router';
 
 class LoginForm extends React.Component {
