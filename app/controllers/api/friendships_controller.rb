@@ -1,4 +1,6 @@
 class Api::FriendshipsController < ApplicationController
+  before_action :ensure_friends, only: [:show, :destroy]
+
   def index
     @friends = current_user.friends
     render :index
@@ -26,19 +28,24 @@ class Api::FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friendship = Friendship.find_by(user_id: current_user.id, friend_id: params[:id])
-    @friendship ||= Friendship.find_by(user_id: params[:id], friend_id: current_user.id)
-    if @friendship
-      @friendship.destroy
-      @friends = current_user.friends
-      render :index
+    friendship = Friendship.find_by_users(current_user.id, params[:id])
+    if friendship
+      Friendship.destroy(friendship.id)
+      @friend = User.find(params[:id])
+      render :show
     else
-      render json: @friendship.errors.full_messages, status: 422
+      render json: friendship.errors.full_messages, status: 422
     end
   end
 
   private
   def friend_params
     params.require(:friend).permit(:email)
+  end
+
+  def ensure_friends
+    unless Friendship.exists?(current_user.id, params[:id])
+      render json: ["Friend not found"], status: 404
+    end
   end
 end

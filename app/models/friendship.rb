@@ -30,6 +30,15 @@ class Friendship < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :friend_id
 
+  def self.exists?(user_id, friend_id)
+    !!self.find_by_users(user_id, friend_id)
+  end
+
+  def self.find_by_users(user_id, friend_id)
+    Friendship.where("user_id = #{user_id} AND friend_id = #{friend_id}
+      OR user_id = #{friend_id} AND friend_id = #{user_id}").first
+  end
+
   def cannot_friend_self
     if user_id == friend_id
       errors.add(:friendship, "Cannot friend self")
