@@ -1,3 +1,25 @@
+// TODO: Remove testclass class
+.testclass {
+  border: 1px solid blue;
+}
+
+.testclass > h6 {
+  color: blue;
+}
+
+#testclass-center-panel {
+  width: 600px;
+  height: 95vh;
+}
+
+#testclass-right-sidebar {
+  width: 180px;
+}
+
+#root {
+  height: 100%;
+}
+
 .wrapper {
   margin: 0 0 -114px;
   min-height: 100%;
@@ -40,6 +62,8 @@ strong {
 
 .full-display-container {
   display: flex;
+  position: relative;
+  top: 34px;
   max-width: 960px;
   margin: auto;
 }

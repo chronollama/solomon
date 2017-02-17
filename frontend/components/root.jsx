@@ -5,7 +5,7 @@ import App from './app';
 import SignupForm from './forms/signup_form';
 import LoginForm from './forms/login_form';
 
-import Test from './test'
+import MainDisplay from './main_display'
 
 const Root = ({ store }) => {
   return (
@@ -13,7 +13,7 @@ const Root = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
           <Route path="/login" component={LoginForm} />
-          <Route path="/test" component={Test} />
+          <Route path="/test" component={MainDisplay} />
         </Route>
         <Route path="/signup" component={SignupForm}/>
       </Router>

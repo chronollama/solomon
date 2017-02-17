@@ -17,3 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
 });
+
+import {getFriends, getFriend, deleteFriend, addFriend} from './actions/friend_actions';
+window.getFriends = getFriends;
+window.getFriend = getFriend;
+window.deleteFriend = deleteFriend;
+window.addFriend = addFriend;
