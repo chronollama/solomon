@@ -34,16 +34,16 @@ class FriendsList extends React.Component {
     if (this.props.friends !== {}) {
       friends = this.props.friends.map((friend) => {
         return (
-          <li key={friend.id}>
-            <Link to={`/friends/${friend.id}`}>{friend.name}</Link>
-          </li>
+          <Link to={`/friends/${friend.id}`}>
+            <li key={friend.id}>{friend.name}</li>
+          </Link>
         );
       });
     }
 
     return (
       <div>
-        <div><span className="list-title">FRIENDS</span>
+        <div className="list-title"><span>FRIENDS</span>
           <button onClick={this.openAddFriend}>add</button>
         </div>
         <ul className="friends-list">
