@@ -7,6 +7,7 @@
 
 .content-block {
   margin: auto;
+  width: 50%;
 }
 
 .input-text {
@@ -24,4 +25,15 @@ strong {
 
 .logo-large {
   padding: 40px;
+}
+
+.error-message {
+  border-color: #b34;
+  background: #c45;
+  color: #fff;
+}
+
+.error-block {
+  border-radius: 1px;
+  padding: 10px;
 }

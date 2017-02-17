@@ -13,3 +13,5 @@ export const receiveErrors = (errors) => {
     errors
   };
 };
+
+// TODO: refactor errors to its own actions/reducer?

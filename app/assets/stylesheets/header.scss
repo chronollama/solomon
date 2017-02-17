@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   background: #5bc5a7;
-  z-index: 99;
+  z-index: 9;
   border-bottom: 1px solid #48be9d;
   color: #fff;
   text-shadow: 0 -1px 0 #39a385;
@@ -14,7 +14,7 @@
 .header-flex {
   display: flex;
   justify-content: space-between;
-  width: auto;
+  width: 50%;
   padding: 0 10px;
   margin: 0 auto;
   position: relative;
@@ -37,4 +37,24 @@
 #btn-profile {
   padding-top: 7px;
   padding-bottom: 6px;
+}
+
+.alert-bar {
+  width: 100%;
+  position: absolute;
+  top: 49px;
+}
+
+.alert-message {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0 0 5px 5px;
+}
+
+.alert-message > h5 {
+  margin: 12px;
+}
+
+.alert-message > button {
+  padding: 0 1.5%;
 }

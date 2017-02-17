@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
-import { signup, receiveErrors } from '../actions/session_actions';
+import { signup, receiveErrors, clearErrors } from '../actions/session_actions';
 import { hashHistory } from 'react-router';
 
 
@@ -15,6 +15,10 @@ class SignupForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.clearErrors();
   }
 
   handleInput(property) {
@@ -38,7 +42,7 @@ class SignupForm extends React.Component {
       });
 
       return (
-        <div>
+        <div className="error-message error-block">
           <strong>The following errors occurred:</strong>
           <ul>{errors}</ul>
         </div>
@@ -101,7 +105,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signup: (user) => dispatch(signup(user)),
-    receiveErrors: (err) => dispatch(receiveErrors(err))
+    receiveErrors: (err) => dispatch(receiveErrors(err)),
+    clearErrors: () => dispatch(clearErrors())
   };
 };
 

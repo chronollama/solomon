@@ -4,29 +4,27 @@ import { hashHistory } from 'react-router';
 import { logout, login } from '../../actions/session_actions';
 import LoginDropdown from './login_dropdown';
 import ProfileDropdown from './profile_dropdown';
+import AlertBar from './alert_bar';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hiddenLogin: true,
-      hiddenProfile: true
+      hiddenProfile: true,
+      hiddenAlert: true
     };
-    this.toggleHidden = this.toggleHidden.bind(this);
+    this.toggleProfileMenu = this.toggleProfileMenu.bind(this);
     this.login = this.props.login.bind(this, {email: 'guest@solomon.com', password: 'solomon'});
   }
 
-  toggleHidden(property) {
-    let hiddenStatus;
-    if (property === 'hiddenLogin') {
-      hiddenStatus = !this.state.hiddenLogin;
-    } else {
-      hiddenStatus = !this.state.hiddenProfile;
-    }
+  toggleProfileMenu() {
+    this.setState({hiddenProfile: !this.state.hiddenProfile});
+  }
 
-    return () => {
-      this.setState({[property]: hiddenStatus});
-    };
+  componentWillReceiveProps(newProps) {
+    if (newProps.errors.length > 0) {
+      this.setState({hiddenAlert: false})
+    }
   }
 
   render() {
@@ -36,7 +34,7 @@ class Header extends React.Component {
         <header className='header'>
           <div className='header-flex'>
             <a href='/'>Solomon</a>
-            <button id='btn-profile' className='btn' onClick={this.toggleHidden('hiddenProfile')}>
+            <button id='btn-profile' className='btn' onClick={this.toggleProfileMenu}>
               {currentUser.name}
               <ProfileDropdown hidden={this.state.hiddenProfile} logout={logout}/>
             </button>
@@ -64,6 +62,7 @@ class Header extends React.Component {
               onClick={() => hashHistory.push('/signup')}>Sign up
             </button>
           </div>
+          <AlertBar hidden={this.state.hiddenAlert} source="login"/>
         </div>
       </header>
     );
@@ -73,6 +72,7 @@ class Header extends React.Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.session.currentUser,
+    errors: state.session.errors
   };
 };
 
