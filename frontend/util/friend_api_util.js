@@ -12,6 +12,7 @@ export const getFriend = (id) => {
   });
 };
 
+
 export const addFriend = (friend) => {
   return $.ajax({
     method: 'POST',
@@ -24,5 +25,12 @@ export const deleteFriend = (id) => {
   return $.ajax({
     method: 'DELETE',
     url: `api/friendships/${id}`
+  });
+};
+
+export const removeFriend = (id) => {
+  return $.ajax({
+    method: 'DELETE',
+    url: 'api/friendships/:id'
   });
 };

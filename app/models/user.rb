@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
     through: :received_friendships,
     source: :friender
 
+
 # TODO: cut this down to 1 server query
   def friends
     requested_friends + received_friends
