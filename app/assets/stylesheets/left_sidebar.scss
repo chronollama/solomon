@@ -4,13 +4,17 @@
   width: 180px;
   z-index: 3;
   color: #999;
-  // TODO: remove this background color
 }
 
-#left-sidebar > div {
+#left-sidebar > a > div {
   padding: 3px 8px 5px 5px;
   height: 19px;
   font-size: 15px;
+}
+
+#left-sidebar a > div:hover {
+  color: darken(#999, 5%);
+  background-color: darken(#f6f6f6, 5%);
 }
 
 .list-title {
@@ -27,13 +31,15 @@
   text-transform: uppercase;
 }
 
+.list-title:hover {
+  background-color: darken(#f6f6f6, 5%);
+}
+
 .friends-list {
   // border: 1px solid black;
 }
 
 .friends-list > a {
-  // color: #999;
-  // border: 1px solid black;
   display: block;
   height: 19px;
   overflow: hidden;
@@ -47,8 +53,9 @@
   text-align: left;
 }
 
-.friends-list > li:hover {
-
+.friends-list li:hover {
+  color: darken(#999, 5%);
+  background-color: darken(#f6f6f6, 5%);
 }
 
 

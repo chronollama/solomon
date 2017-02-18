@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import FriendsList from './friends_list';
 // import GroupsList from './groups_list';
 
@@ -14,9 +15,9 @@ class LeftSidebar extends React.Component {
   render() {
     return (
       <nav id="left-sidebar">
-        <div>Dashboard</div>
-        <div>Recent activity</div>
-        <div>All expenses</div>
+        <Link to="/dashboard"><div>Dashboard</div></Link>
+        <Link to="/activity"><div>Recent activity</div></Link>
+        <Link to="/all"><div>All expenses</div></Link>
         <FriendsList />
       </nav>
     );
