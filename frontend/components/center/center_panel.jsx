@@ -17,7 +17,18 @@ const CenterPanel = (props) => {
           <h6>CenterPanelItem</h6>
         </div>
     </div>
+
+
   );
 };
+
+// switch(this.props.displayType) {
+//   case '/activity':
+//   case '/all':
+//   case '/friend':
+//   default: (dashboard)
+// }
+// displayType: ownProps.params.displayType
+
 
 export default CenterPanel;

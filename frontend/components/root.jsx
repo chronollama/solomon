@@ -24,8 +24,7 @@ const Root = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
           <Route path="/login" component={LoginForm} onEnter={_redirectIfLoggedIn}/>
-          <Route path="/dashboard" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}>
-            <Route path="/friends/:id" component={Friend}/>
+          <Route path="/:display/:id" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}>
           </Route>
         </Route>
         <Route path="/signup" component={SignupForm}/>
