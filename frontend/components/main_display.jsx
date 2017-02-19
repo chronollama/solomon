@@ -6,7 +6,7 @@ const MainDisplay = (props) => {
   return(
     <div className="full-display-container">
       <LeftSidebar/>
-      <CenterPanel/>
+      <CenterPanel displayType={props.route.path}/>
       <div className="testclass" id="testclass-right-sidebar">
         <h6>RightSidebarComp</h6>
       </div>

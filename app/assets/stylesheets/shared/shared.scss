@@ -1,24 +1,15 @@
-// TODO: Remove testclass class
 .testclass {
-  border: 1px solid blue;
+
 }
 
 .testclass > h6 {
   color: blue;
 }
 
-#testclass-center-panel {
-  width: 600px;
-  height: 95vh;
-}
-
 #testclass-right-sidebar {
   width: 180px;
 }
-
-#root {
-  height: 100%;
-}
+// TODO: Remove testclass
 
 .wrapper {
   margin: 0 0 -114px;
@@ -66,4 +57,16 @@ strong {
   top: 34px;
   max-width: 960px;
   margin: auto;
+}
+
+.center-panel {
+  width: 600px;
+  height: 95vh;
+  border: 1px solid blue;
+}
+
+.center-panel > header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
