@@ -1,7 +1,7 @@
 # Schema Information
 
 ## users
-|     Column Name | Data Type | Details                   |
+| Column Name     | Data Type | Details                   |
 |----------------:|-----------|---------------------------|
 | id              | integer   | not null, primary key     |
 | email           | string    | not null, unique, indexed |
@@ -17,35 +17,44 @@
 | friend_id   | integer   | not null, indexed     |
 
 ## bills
-|   Column Name | Data Type | Details                |
+| Column Name   | Data Type | Details                |
 |--------------:|-----------|------------------------|
 | id            | integer   | not null, primary key  |
-| category      | string    | not null               |
+| category      | string    | default 'uncategorized'|
 | description   | string    | not null               |
-| amount        | decimal   | not null               |
+| total         | decimal   | not null, scale: 2     |
 | date          | date      | not null               |
-| image_notes   | string    |                        |
+| notes         | string    |                        |
 | group_options | string    | not null               |
-| settled       | boolean   | not null, default false|
+
+## bill_shares
+| Column Name | Data Type | Details                 |
+|------------:|-----------|-------------------------|
+| id          | integer   | not null, primary key   |
+| due         | decimal   | not null, scale: 2      |
+| paid        | decimal   | not null, scale: 2      |
+| bill_id     | integer   | not null, indexed       |
+| user_id     | integer   | not null, indexed       |
 
 ## debts
 | Column Name | Data Type | Details                 |
 |------------:|-----------|-------------------------|
 | id          | integer   | not null, primary key   |
-| amount_owed | decimal   | not null                |
-| bill_id     | integer   | not null, indexed       |
 | debtor_id   | integer   | not null, indexed       |
 | creditor_id | integer   | not null, indexed       |
+| amount      | decimal   | not null, scale: 2      |
 
 ## transaction
 | Column Name | Data Type | Details                 |
 |------------:|-----------|-------------------------|
 | id          | integer   | not null, primary key   |
-| amount_paid | decimal   | not null                |
-| debt_id     | integer   | not null, indexed       |
+| amount      | decimal   | not null, scale: 2      |
+| date        | date      | not null                |
+| payer_id    | integer   | not null, indexed       |
+| recipient_id| integer   | not null, indexed       |
 
 ## comments
-|    Column Name | Data Type | Details               |
+| Column Name    | Data Type | Details               |
 |---------------:|-----------|-----------------------|
 | id             | integer   | not null, primary key |
 | body           | string    | not null              |
