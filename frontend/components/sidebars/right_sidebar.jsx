@@ -18,24 +18,25 @@ class RightSidebar extends React.Component {
       case '/expenses':
         return (
           <div className="right-btns">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
+            <button><i className="fa fa-align-justify" aria-hidden="true"></i></button>
+            <button><i className="fa fa-calendar" aria-hidden="true"></i></button>
+            <button><i className="fa fa-line-chart" aria-hidden="true"></i></button>
           </div>
         );
       case '/friends/:id':
         return (
           <div className="right-btns">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
+            <button alt="Balances"><i className="fa fa-align-justify" aria-hidden="true"></i></button>
+            <button alt="Upcoming bills"><i className="fa fa-calendar" aria-hidden="true"></i></button>
+            <button alt="Trends"><i className="fa fa-line-chart" aria-hidden="true"></i></button>
+            <button alt="Settings"><i className="fa fa-cog" aria-hidden="true"></i></button>
           </div>
         );
       default:
         return (<h2>NO BUTTONS</h2>);
     }
   }
+  // TODO: show text on hover over buttons 
 
   render() {
     return (
