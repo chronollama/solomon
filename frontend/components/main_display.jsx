@@ -1,15 +1,14 @@
 import React from 'react';
 import LeftSidebar from './sidebars/left_sidebar';
 import CenterPanel from './center/center_panel';
+import RightSidebar from './sidebars/right_sidebar';
 
 const MainDisplay = (props) => {
   return(
     <div className="full-display-container">
       <LeftSidebar/>
-      <CenterPanel/>
-      <div className="testclass" id="testclass-right-sidebar">
-        <h6>RightSidebarComp</h6>
-      </div>
+      <CenterPanel displayType={props.route.path}/>
+      <RightSidebar displayType={props.route.path}/>
     </div>
   );
 };
