@@ -7,9 +7,15 @@ import FriendsList from './friends_list';
 const LeftSidebar = () => {
   return (
     <nav id="left-sidebar">
-      <Link to="/dashboard"><div>Dashboard</div></Link>
-      <Link to="/activity"><div>Recent activity</div></Link>
-      <Link to="/expenses"><div>All expenses</div></Link>
+      <Link to="/dashboard"><div>
+        <i className="fa fa-home" aria-hidden="true"></i>Dashboard
+      </div></Link>
+      <Link to="/activity"><div>
+        <i className="fa fa-flag" aria-hidden="true"></i>Recent activity
+      </div></Link>
+      <Link to="/expenses"><div>
+        <i className="fa fa-list" aria-hidden="true"></i>All expenses
+      </div></Link>
       <FriendsList />
     </nav>
   );

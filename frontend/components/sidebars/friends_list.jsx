@@ -37,7 +37,7 @@ class FriendsList extends React.Component {
       friends = this.props.friends.map((friend) => {
         return (
           <Link to={`/friends/${friend.id}`} key={friend.id}>
-            <li>{friend.name}</li>
+            <li><i className="fa fa-user" aria-hidden="true"></i>{friend.name}</li>
           </Link>
         );
       });

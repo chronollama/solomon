@@ -1,13 +1,13 @@
 #left-sidebar {
   position: relative;
-  padding: 14px 30px 0 10px;
-  width: 180px;
+  padding: 14px 20px 0 0px;
+  width: 200px;
   z-index: 3;
   color: #999;
 }
 
 #left-sidebar > a > div {
-  padding: 3px 8px 5px 5px;
+  padding: 4px 8px;
   height: 19px;
   font-size: 15px;
 }
@@ -24,7 +24,6 @@
   padding: 3px 5px;
   border-top: 1px solid #f3f3f3;
   border-bottom: 1px solid #eee;
-  width: 100%;
   background: #f6f6f6;
   font-size: 11px;
   color: #ccc;
@@ -35,22 +34,25 @@
   background-color: darken(#f6f6f6, 5%);
 }
 
-.friends-list {
-  // border: 1px solid black;
-}
-
 .friends-list > a {
   display: block;
   height: 19px;
   overflow: hidden;
   white-space: nowrap;
-  padding: 3px 8px 2px 8px;
-  border-left: 6px solid #fff;
+  padding-bottom: 5px;
   font-size: 14px;
-  color: inherit;
   text-decoration: none;
   text-overflow: ellipsis;
   text-align: left;
+}
+
+#left-sidebar i {
+  margin-right: 7px;
+  padding-left: 4px 8px;
+}
+
+.friends-list li {
+  padding: 0 5px;
 }
 
 .friends-list li:hover {
