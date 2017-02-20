@@ -38,6 +38,12 @@ class User < ActiveRecord::Base
     through: :received_friendships,
     source: :friender
 
+  has_many :bill_shares
+
+  has_many :bills,
+    through: :bill_shares,
+    source: :bill
+
 
 # TODO: cut this down to 1 server query
   def friends
