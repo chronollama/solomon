@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216183124) do
+ActiveRecord::Schema.define(version: 20170220163624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bill_shares", force: :cascade do |t|
+    t.decimal  "due",        precision: 10, scale: 2, null: false
+    t.decimal  "paid",       precision: 10, scale: 2, null: false
+    t.integer  "bill_id",                             null: false
+    t.integer  "user_id",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["bill_id", "user_id"], name: "index_bill_shares_on_bill_id_and_user_id", unique: true, using: :btree
+  end
+
+  create_table "bills", force: :cascade do |t|
+    t.string   "category",                             default: "uncategorized", null: false
+    t.string   "description",                                                    null: false
+    t.decimal  "total",       precision: 10, scale: 2,                           null: false
+    t.date     "date",                                                           null: false
+    t.string   "notes"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+  end
+
+  create_table "debts", force: :cascade do |t|
+    t.decimal  "amount",      precision: 10, scale: 2, null: false
+    t.integer  "debtor_id",                            null: false
+    t.integer  "creditor_id",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["debtor_id", "creditor_id"], name: "index_debts_on_debtor_id_and_creditor_id", unique: true, using: :btree
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id",    null: false

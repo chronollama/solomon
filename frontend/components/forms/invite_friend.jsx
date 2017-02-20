@@ -51,6 +51,7 @@ class InviteFriend extends React.Component {
     );
   }
 }
+// TODO: error for adding non-user as friend
 
 const mapStateToProps = state => {
   return {

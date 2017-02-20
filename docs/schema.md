@@ -40,9 +40,9 @@
 | Column Name | Data Type | Details                 |
 |------------:|-----------|-------------------------|
 | id          | integer   | not null, primary key   |
+| amount      | decimal   | not null, scale: 2      |
 | debtor_id   | integer   | not null, indexed       |
 | creditor_id | integer   | not null, indexed       |
-| amount      | decimal   | not null, scale: 2      |
 
 ## transaction
 | Column Name | Data Type | Details                 |
