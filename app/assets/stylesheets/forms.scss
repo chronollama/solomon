@@ -22,7 +22,7 @@
   background-color: #fff;
   width: 210px;
   height: 18px;
-  padding: 4px;
+  padding: 13px;
   color: #555;
 }
 
@@ -30,9 +30,6 @@
   display: flex;
   line-height: 36px;
   font-size: 18px;
-  // width: auto;
-  // max-width: 600px;
-  // padding-bottom: 50px;
   width: 50%;
   padding: 0 10px;
   margin: 84px auto;
@@ -80,4 +77,51 @@
 .signup-name {
   font-size: 32px;
   height: 42px;
+}
+
+.invite-form {
+}
+
+.invite-form input, .invite-form div {
+  margin-bottom: 20px;
+}
+
+.invite-form input {
+  width: 350px;
+}
+
+.invite-form button {
+  margin: auto;
+}
+
+.invite-form h2 {
+  font-weight: bold;
+}
+
+
+.invite {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  bottom: 40px;
+  left: 40px;
+  margin: auto;
+  width: 400px;
+  height: 150px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  z-index: 10;
+  background: rbga(255, 255, 255, 1);
+}
+
+.invite-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background: rgba(204, 204, 204, 0.75);
 }

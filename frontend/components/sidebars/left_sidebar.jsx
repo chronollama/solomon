@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import FriendsList from './friends_list';
 // import GroupsList from './groups_list';
 
-const LeftSidebar = (props) => {
+const LeftSidebar = () => {
   return (
     <nav id="left-sidebar">
       <Link to="/dashboard"><div>Dashboard</div></Link>

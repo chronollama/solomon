@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 import App from './app';
 import SignupForm from './forms/signup_form';
 import LoginForm from './forms/login_form';

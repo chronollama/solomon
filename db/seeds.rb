@@ -1,4 +1,5 @@
 User.destroy_all
+Friendship.destroy_all
 
 user1 = User.create(email: 'guest@solomon.com', name: 'Guest', password: 'solomon')
 user2 = User.create(email: 'a', name: 'a', password: 'aaaaaa')

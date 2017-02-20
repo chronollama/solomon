@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getFriends } from '../../actions/friend_actions';
-import {friendsArray } from '../../reducers/selectors';
+import { friendsArray } from '../../reducers/selectors';
+import InviteFriend from '../forms/invite_friend';
 
 class FriendsList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetching: true };
+    this.state = { fetching: true, openInviteForm: false };
+    this.openAddFriend = this.openAddFriend.bind(this);
+    this.closeAddFriend = this.closeAddFriend.bind(this);
   }
 
   componentDidMount() {
@@ -16,13 +19,12 @@ class FriendsList extends React.Component {
     );
   }
 
-
-  // componentWillReceiveProps(newProps) {
-  //
-  // }
-
   openAddFriend() {
-    console.log("This will open the add friend form");
+    this.setState({openInviteForm: true});
+  }
+
+  closeAddFriend() {
+    this.setState({openInviteForm: false});
   }
 
   render() {
@@ -45,6 +47,8 @@ class FriendsList extends React.Component {
       <div>
         <div className="list-title"><span>FRIENDS</span>
           <button onClick={this.openAddFriend}>add</button>
+          <InviteFriend open={this.state.openInviteForm}
+            closeAddFriend={this.closeAddFriend}/>
         </div>
         <ul className="friends-list">
           {friends}
