@@ -18,6 +18,7 @@
   padding: 0 10px;
   position: relative;
   margin: auto;
+  box-sizing: border-box;
 }
 
 .header-flex a {
@@ -32,11 +33,6 @@
 
 .header-flex .login-bar span {
   padding-top: 3px;
-}
-
-#btn-profile {
-  padding-top: 7px;
-  padding-bottom: 6px;
 }
 
 .alert-bar {

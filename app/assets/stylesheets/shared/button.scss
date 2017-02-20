@@ -47,14 +47,6 @@
   width: auto;
 }
 
-.btn-profile {
-  position: relative;
-}
-
-.btn-profile:hover {
-  background: mediumseagreen;
-}
-
 #btn-login-large {
   background: #ff652f;
   color: #fff;
@@ -64,4 +56,14 @@
 
 #btn-login-large:hover {
   background-color: darken(#ff652f, 5%);
+}
+
+.btn-profile {
+  padding-top: 7px;
+  padding-bottom: 6px;
+  border: none;
+}
+
+.btn-profile:hover {
+  background-color: darken(#5bc5a7, 5%);
 }
