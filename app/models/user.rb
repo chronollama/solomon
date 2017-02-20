@@ -44,6 +44,16 @@ class User < ActiveRecord::Base
     through: :bill_shares,
     source: :bill
 
+  has_many :debts,
+    class_name: :Debt,
+    primary_key: :id,
+    foreign_key: :debtor_id
+
+  has_many :credits,
+    class_name: :Debt,
+    primary_key: :id,
+    foreign_key: :creditor_id
+
 
 # TODO: cut this down to 1 server query
   def friends

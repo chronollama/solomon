@@ -11,8 +11,8 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.new(user_params)
-    if @user.update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
       render :show
     else
       render json: @user.errors.full_messages, status: 422

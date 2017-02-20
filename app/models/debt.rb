@@ -23,4 +23,6 @@ class Debt < ActiveRecord::Base
     class_name: :User,
     primary_key: :id,
     foreign_key: :creditor_id
+
+  
 end
