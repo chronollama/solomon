@@ -1,7 +1,7 @@
 class Api::BillsController < ApplicationController
   def create
     @bill = Bill.new(bill_params)
-    if @bill.record_bill(params[:bill_shares])
+    if @bill.record(params[:bill_shares])
       render :show
     else
       render json: @bill.errors.full_messages, status: 422

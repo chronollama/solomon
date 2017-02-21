@@ -16,7 +16,6 @@ class Bill < ActiveRecord::Base
   validates :category, :description, :total, :date, presence: true
   validates :total, numericality: { greater_than_or_equal_to: 0 }
   before_create :format_total
-  after_create :record_debts
   # after_update update bill shares and debts, update attributes in controller or just update?
   after_commit :report_success
   after_rollback :report_failure
@@ -27,22 +26,12 @@ class Bill < ActiveRecord::Base
     through: :bill_shares,
     source: :user
 
-  def record_bill(shares)
-    num_users = shares.length
-    split = []
-    num_users.times { split << (total / num_users) }
-
-    remainder = total % num_users
-    until remainder == 0
-      split.map! do |amount|
-        break if remainder == 0
-        remainder -= 1
-        amount += 1
-      end
-    end
+  def record(shares)
+    split = calculate_split(shares.length)
 
     Bill.transaction do
       self.save
+
       shares.each do |user_id, paid|
         BillShare.create!(
           due: convert_to_cents(split.first),
@@ -52,7 +41,27 @@ class Bill < ActiveRecord::Base
         )
         split.shift
       end
+
+      aggregate_differences
+      reconcile_debts_to_credits
     end
+  end
+
+  private
+
+  def calculate_split(num_shares)
+    split = []
+    num_shares.times { split << (total / num_shares) }
+
+    remainder = total % num_shares
+    until remainder == 0
+      split.map! do |amount|
+        break if remainder == 0
+        remainder -= 1
+        amount += 1
+      end
+    end
+    split
   end
 
   def creditors
@@ -67,31 +76,34 @@ class Bill < ActiveRecord::Base
     bill_shares.each do |bill_share|
       net = bill_share.paid - bill_share.due
       if net < 0
-        self.debtors[bill_share.user_id] = net * -1
+        debtors[bill_share.user_id] = net * -1
       elsif net > 0
-        self.creditors[bill_share.user_id] = net
+        creditors[bill_share.user_id] = net
       end
     end
   end
 
-  def record_debts
-    creditors.each do |creditor_id, credit|
-      make_whole(creditor_id, credit)
+  def reconcile_debts_to_credits
+    creditors.keys.each do |creditor_id|
+      record_debts(creditor_id)
     end
   end
 
-  private
-  def make_whole(creditor_id, credit)
+  def record_debts(creditor_id)
     debtors.each do |debtor_id, debt|
+      credit = creditors[creditor_id]
+
       if credit > debt
         Debt.create!(amount: debt, creditor_id: creditor_id, debtor_id: debtor_id)
         creditors[creditor_id] = credit - debt
+        debtors.delete(debtor_id)
       else credit <= debt
         Debt.create!(amount: credit, creditor_id: creditor_id, debtor_id: debtor_id)
         debt == credit ? debtors.delete(debtor_id) : debtors[debtor_id] = debt - credit
         creditors.delete(creditor_id)
         return nil
       end
+
     end
   end
 
