@@ -21,21 +21,20 @@ class Bill < ActiveRecord::Base
   after_commit :report_success
   after_rollback :report_failure
 
-  has_many :bill_shares, inverse_of: :bills
+  has_many :bill_shares, inverse_of: :bill,  dependent: :destroy
 
   has_many :users,
     through: :bill_shares,
     source: :user
 
-  def record_bill(bill_shares)
-    debugger
-    num_users = bill_shares.length
+  def record_bill(shares)
+    num_users = shares.length
     split = []
     num_users.times { split << (total / num_users) }
 
     remainder = total % num_users
     until remainder == 0
-      split.map do |amount|
+      split.map! do |amount|
         break if remainder == 0
         remainder -= 1
         amount += 1
@@ -43,10 +42,16 @@ class Bill < ActiveRecord::Base
     end
 
     Bill.transaction do
-      bill_shares.each_with_index do |bill_share, idx|
-        BillShare.create!(due: split[idx], paid: bill_share.paid, bill_id: id, user_id: user.id)
+      self.save
+      shares.each do |user_id, paid|
+        BillShare.create!(
+          due: convert_to_cents(split.first),
+          paid: convert_to_cents(paid),
+          bill_id: self.id,
+          user_id: user_id
+        )
+        split.shift
       end
-      self.save!
     end
   end
 
@@ -91,8 +96,11 @@ class Bill < ActiveRecord::Base
   end
 
   def format_total
-    debugger
-    self.total = (total.to_f * 100).to_i
+    self.total = convert_to_cents(total)
+  end
+
+  def convert_to_cents(amount)
+    (amount.to_f * 100).to_i
   end
 
   def report_success

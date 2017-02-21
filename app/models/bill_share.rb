@@ -15,6 +15,6 @@ class BillShare < ActiveRecord::Base
   validates :due, :paid, :bill, :user, presence: true
   validates :due, :paid, numericality: { greater_than_or_equal_to: 0 }
 
-  belongs_to :bill, inverse_of: :bill_shares, dependent: :destroy
-  belongs_to :user, inverse_of: :bill_shares, dependent: :destroy
+  belongs_to :bill, inverse_of: :bill_shares
+  belongs_to :user, inverse_of: :bill_shares
 end
