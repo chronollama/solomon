@@ -22,8 +22,9 @@ class CreateBills < ActiveRecord::Migration[5.0]
       t.integer :amount, null: false
       t.integer :debtor_id, null: false
       t.integer :creditor_id, null: false
+      t.integer :bill_id, null: false
       t.timestamps
     end
-    add_index :debts, [:debtor_id, :creditor_id], unique: true
+    add_index :debts, [:debtor_id, :creditor_id, :bill_id], unique: true
   end
 end

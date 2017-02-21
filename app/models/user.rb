@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     class_name: :Friendship,
     primary_key: :id,
     foreign_key: :user_id
-
+    
   has_many :received_friendships,
     class_name: :Friendship,
     primary_key: :id,

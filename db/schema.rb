@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(version: 20170220163624) do
     t.integer  "amount",      null: false
     t.integer  "debtor_id",   null: false
     t.integer  "creditor_id", null: false
+    t.integer  "bill_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["debtor_id", "creditor_id"], name: "index_debts_on_debtor_id_and_creditor_id", unique: true, using: :btree
+    t.index ["debtor_id", "creditor_id", "bill_id"], name: "index_debts_on_debtor_id_and_creditor_id_and_bill_id", unique: true, using: :btree
   end
 
   create_table "friendships", force: :cascade do |t|

@@ -14,7 +14,8 @@
 class BillShare < ActiveRecord::Base
   validates :due, :paid, :bill, :user, presence: true
   validates :due, :paid, numericality: { greater_than_or_equal_to: 0 }
+  validates :bill_id, uniqueness: { scope: :user_id }
 
-  belongs_to :bill, inverse_of: :bill_shares
-  belongs_to :user, inverse_of: :bill_shares
+  belongs_to :bill
+  belongs_to :user
 end

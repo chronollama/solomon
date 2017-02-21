@@ -20,28 +20,19 @@ class Bill < ActiveRecord::Base
   after_commit :report_success
   after_rollback :report_failure
 
-  has_many :bill_shares, inverse_of: :bill,  dependent: :destroy
-
+  has_many :debts, dependent: :destroy
+  has_many :bill_shares, dependent: :destroy
   has_many :users,
     through: :bill_shares,
     source: :user
+
 
   def record(shares)
     split = calculate_split(shares.length)
 
     Bill.transaction do
       self.save
-
-      shares.each do |user_id, paid|
-        BillShare.create!(
-          due: convert_to_cents(split.first),
-          paid: convert_to_cents(paid),
-          bill_id: self.id,
-          user_id: user_id
-        )
-        split.shift
-      end
-
+      create_shares(shares, split)
       aggregate_differences
       reconcile_debts_to_credits
     end
@@ -49,7 +40,20 @@ class Bill < ActiveRecord::Base
 
   private
 
+  def create_shares(shares, split)
+    shares.each do |user_id, paid|
+      BillShare.create!(
+        due: split.first,
+        paid: convert_to_cents(paid),
+        bill_id: self.id,
+        user_id: user_id
+      )
+      split.shift
+    end
+  end
+
   def calculate_split(num_shares)
+    debugger
     split = []
     num_shares.times { split << (total / num_shares) }
 
@@ -94,16 +98,15 @@ class Bill < ActiveRecord::Base
       credit = creditors[creditor_id]
 
       if credit > debt
-        Debt.create!(amount: debt, creditor_id: creditor_id, debtor_id: debtor_id)
+        Debt.create!(amount: debt, creditor_id: creditor_id, debtor_id: debtor_id, bill_id: self.id)
         creditors[creditor_id] = credit - debt
         debtors.delete(debtor_id)
       else credit <= debt
-        Debt.create!(amount: credit, creditor_id: creditor_id, debtor_id: debtor_id)
+        Debt.create!(amount: credit, creditor_id: creditor_id, debtor_id: debtor_id, bill_id: self.id)
         debt == credit ? debtors.delete(debtor_id) : debtors[debtor_id] = debt - credit
         creditors.delete(creditor_id)
         return nil
       end
-
     end
   end
 
