@@ -53,8 +53,6 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    // TODO: Are all these divs necessary?
-
     return (
       <div className="wrapper">
         <div className="form-container-large">

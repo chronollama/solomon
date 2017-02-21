@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     through: :received_friendships,
     source: :friender
 
-  has_many :bill_shares
+  has_many :bill_shares, inverse_of: :user
 
   has_many :bills,
     through: :bill_shares,

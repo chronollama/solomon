@@ -11,7 +11,6 @@ class Api::FriendshipsController < ApplicationController
     render :show
   end
 
-  # TODO: should this be params[:id] or nested params[:friend][:id]
   def create
     @friend = User.find_by(friend_params)
     if @friend

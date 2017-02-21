@@ -36,7 +36,7 @@ class RightSidebar extends React.Component {
         return (<h2>NO BUTTONS</h2>);
     }
   }
-  // TODO: show text on hover over buttons 
+  // TODO: show tooltip text on hover over buttons 
 
   render() {
     return (
