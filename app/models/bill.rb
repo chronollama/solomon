@@ -16,9 +16,6 @@ class Bill < ActiveRecord::Base
   validates :category, :description, :total, :date, presence: true
   validates :total, numericality: { greater_than_or_equal_to: 0 }
   before_create :format_total
-  # after_update update bill shares and debts, update attributes in controller or just update?
-  after_commit :report_success
-  after_rollback :report_failure
 
   has_many :debts, dependent: :destroy
   has_many :bill_shares, dependent: :destroy
@@ -26,17 +23,23 @@ class Bill < ActiveRecord::Base
     through: :bill_shares,
     source: :user
 
-
-  def record(shares)
-    debugger
+  def make_records(shares, bill_params = nil)
+    success = false
     split = calculate_split(shares.length)
-
     Bill.transaction do
-      self.save
+      bill_params ? self.update(bill_params) : self.save!
       create_shares(shares, split)
       aggregate_differences
       reconcile_debts_to_credits
+      success = true
     end
+    success
+  end
+
+  def update_records(shares, bill_params)
+    bill_shares.destroy_all
+    debts.destroy_all
+    make_records(shares, bill_params)
   end
 
   private
@@ -116,13 +119,5 @@ class Bill < ActiveRecord::Base
 
   def convert_to_cents(amount)
     (amount.to_f * 100).to_i
-  end
-
-  def report_success
-    true
-  end
-
-  def report_failure
-    false
   end
 end
