@@ -18,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(<Root store={store}/>, root);
 });
 
-import {getFriends, getFriend, deleteFriend, addFriend} from './actions/friend_actions';
-window.getFriends = getFriends;
-window.getFriend = getFriend;
-window.deleteFriend = deleteFriend;
-window.addFriend = addFriend;
+// TODO remove these when done testing
+// import {getBills, getBill, deleteBill, addBill} from './actions/bill_actions';
+// window.getBills = getBills;
+// window.getBill = getBill;
+// window.deleteBill = deleteBill;
+// window.addBill = addBill;

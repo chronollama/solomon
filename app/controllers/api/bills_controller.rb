@@ -10,22 +10,27 @@ class Api::BillsController < ApplicationController
 
   def index
     @bills = current_user.bills
+    # TODO includes bill_shares and/or users here?
     render :index
   end
 
   def show
     @bill = Bill.find(params[:id])
-    render :show
+    if @bill.user_ids.include?(current_user.id)
+      render :show
+    else
+      render json: ["Unauthorized to access this bill"], status: 401
+    end
   end
 
   def update
     @bill = Bill.find(params[:id])
-    if @bill.update_records(params[:bill_shares], bill_params)
+    if @bill.user_ids.include?(current_user.id) == false
+      render json: ["Unauthorized to access this bill"], status: 401
+    elsif @bill.update_records(params[:bill_shares], bill_params)
       render :show
-    elsif @bill
-      render json: ["Could not perform action"], status: 422
     else
-      render json: ["Bill not found"], status: 404
+      render json: ["Could not perform action"], status: 422
     end
   end
 

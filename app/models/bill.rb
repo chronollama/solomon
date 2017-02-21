@@ -37,6 +37,8 @@ class Bill < ActiveRecord::Base
   end
 
   def update_records(shares, bill_params)
+    # TODO use association id setter (bill.user_ids += or -= to directly add or remove join table entries)
+    # Then, update entries based on new number of shares
     bill_shares.destroy_all
     debts.destroy_all
     make_records(shares, bill_params)
