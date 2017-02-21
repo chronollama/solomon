@@ -28,6 +28,7 @@ class Bill < ActiveRecord::Base
 
 
   def record(shares)
+    debugger
     split = calculate_split(shares.length)
 
     Bill.transaction do
@@ -43,7 +44,7 @@ class Bill < ActiveRecord::Base
   def create_shares(shares, split)
     shares.each do |user_id, paid|
       BillShare.create!(
-        due: split.first,
+        due: convert_to_cents(split.first),
         paid: convert_to_cents(paid),
         bill_id: self.id,
         user_id: user_id
@@ -53,7 +54,6 @@ class Bill < ActiveRecord::Base
   end
 
   def calculate_split(num_shares)
-    debugger
     split = []
     num_shares.times { split << (total / num_shares) }
 

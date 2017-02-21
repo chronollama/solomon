@@ -29,6 +29,15 @@ class Debt < ActiveRecord::Base
     foreign_key: :creditor_id
 
   def self.net(user1_id, user2_id)
-    
+    user1_owes = Debt.where("debtor_id = #{user1_id} AND creditor_id = #{user2_id}").sum(:amount)
+    user2_owes = Debt.where("debtor_id = #{user2_id} AND creditor_id = #{user1_id}").sum(:amount)
+    net = user1_owes - user2_owes
+    if net < 0
+      {debtor_id: user2_id, creditor_id: user1_id, amount: net * -1}
+    elsif net > 0
+      {debtor_id: user1_id, creditor_id: user2_id, amount: net}
+    else
+      nil
+    end
   end
 end
