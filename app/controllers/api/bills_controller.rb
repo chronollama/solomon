@@ -9,8 +9,9 @@ class Api::BillsController < ApplicationController
   end
 
   def index
-    @bills = current_user.bills
-    # TODO includes bill_shares and/or users here?
+    @bill_shares = current_user.bill_shares.includes(:bill, :debts).where(
+      "debts.debtor_id = #{current_user.id}
+      OR debts.creditor_id = #{current_user.id}").references(:debts)
     render :index
   end
 
