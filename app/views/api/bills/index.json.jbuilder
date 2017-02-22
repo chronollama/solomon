@@ -6,5 +6,7 @@
     json.total bill.total
     json.date bill.date
     json.notes bill.notes
+    json.created_at bill.created_at
+    json.updated_at bill.updated_at
   end
 end

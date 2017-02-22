@@ -25,3 +25,4 @@ Friendship.create(user_id: user3.id, friend_id: user4.id)
 
 Bill.create(category: 'entertainment', description: 'Star Wars XIV', total: 13, date: Date.parse('28-12-2020'), notes: 'Luke is his own father!')
 Bill.create(description: 'Chipotle', total: 8.50, date: Date.parse('12-2-2017'))
+# Bill.new(category: 'food', description: 'donuts', total: 8, date: Date.parse('16-2-2017'), notes: 'sprinkles!')
