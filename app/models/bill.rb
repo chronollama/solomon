@@ -25,9 +25,9 @@ class Bill < ActiveRecord::Base
 
   def make_records(shares, bill_params = nil)
     success = false
-    split = calculate_split(shares.length)
     Bill.transaction do
       bill_params ? self.update(bill_params) : self.save!
+      split = calculate_split(shares.length)
       create_shares(shares, split)
       aggregate_differences
       reconcile_debts_to_credits
@@ -49,7 +49,7 @@ class Bill < ActiveRecord::Base
   def create_shares(shares, split)
     shares.each do |user_id, paid|
       BillShare.create!(
-        due: convert_to_cents(split.first),
+        due: split.first,
         paid: convert_to_cents(paid),
         bill_id: self.id,
         user_id: user_id
