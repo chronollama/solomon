@@ -44,6 +44,10 @@ class Bill < ActiveRecord::Base
     make_records(shares, bill_params)
   end
 
+  def convert_to_dollars(amount)
+    amount / 100.0
+  end
+
   private
 
   def create_shares(shares, split)

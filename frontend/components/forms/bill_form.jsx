@@ -51,3 +51,5 @@ class BillForm extends React.Component {
     );
   }
 }
+
+export default BillForm;

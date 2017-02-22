@@ -39,7 +39,7 @@ class FriendDetails extends React.Component {
     }
 
     return (
-      <div className="center-panel">
+      <div>
         <header>
           <h2>{friend.name}</h2>
           <div>
@@ -50,7 +50,7 @@ class FriendDetails extends React.Component {
 
 
         <section className="center-panel-items">
-          friendHistoryComponent
+          Transactions and bills with this friend
           {this.friendHistory}
         </section>
       </div>

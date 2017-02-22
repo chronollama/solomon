@@ -22,7 +22,7 @@ class Api::FriendshipsController < ApplicationController
       end
 
     else
-      render json: @friend.errors.full_messages, status: 404
+      render json: ["User not found"], status: 404
     end
   end
 

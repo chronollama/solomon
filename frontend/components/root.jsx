@@ -4,7 +4,8 @@ import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-rou
 import App from './app';
 import SignupForm from './forms/signup_form';
 import LoginForm from './forms/login_form';
-import MainDisplay from './main_display'
+import MainDisplay from './main_display';
+import BillForm from './forms/bill_form';
 
 const Root = ({ store }) => {
   const _redirectIfLoggedIn = (nextState, replace) => {
@@ -28,6 +29,7 @@ const Root = ({ store }) => {
           <Route path="/activity" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
           <Route path="/expenses" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
           <Route path="/friends/:id" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
+          <Route path="/test" component={BillForm} onEnter={_redirectUnlessLoggedIn}/>
         </Route>
         <Route path="/signup" component={SignupForm}/>
       </Router>

@@ -40,10 +40,11 @@ class InviteFriend extends React.Component {
         contentLabel="Invite Form">
         <form id="invite-form" className="invite-form">
           <div>
-            <h2>Add Friend</h2>
+            <h2>Add friend</h2>
           </div>
           <input className="input-text" type="text" onChange={this.handleInput}
             placeholder="Email address" value={this.state.email}/>
+          <h6>Send a friend request to someone already on Solomon</h6>
           <button className="btn btn-signup"
             onClick={this.handleSubmit}>Add friend</button>
         </form>
@@ -51,7 +52,7 @@ class InviteFriend extends React.Component {
     );
   }
 }
-// TODO: error for adding non-user as friend
+// TODO: error for adding non-user as friend, search bar that displays users while typing
 
 
 const mapDispatchToProps = dispatch => {
