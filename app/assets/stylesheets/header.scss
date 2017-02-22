@@ -1,9 +1,11 @@
+@import './colors';
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #5bc5a7;
+  background: $mint;
   z-index: 9;
   border-bottom: 1px solid #48be9d;
   color: #fff;

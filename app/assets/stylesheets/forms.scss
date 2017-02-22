@@ -1,3 +1,5 @@
+@import './colors';
+
 #login-btn-container {
   position: relative;
 }
@@ -6,7 +8,7 @@
   position: absolute;
   top: 39px;
   left: -72px;
-  background-color: #eee;
+  background-color: $gray;
   border: 1px solid #ccc;
   border-radius: 0 0 5px 5px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.4);

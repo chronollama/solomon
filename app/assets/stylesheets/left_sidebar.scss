@@ -1,9 +1,11 @@
+@import './colors';
+
 #left-sidebar {
   position: relative;
   padding: 14px 20px 0 0px;
   width: 200px;
   z-index: 3;
-  color: #999;
+  color: $darkergray;
 }
 
 #left-sidebar > a > div {
@@ -13,8 +15,8 @@
 }
 
 #left-sidebar a > div:hover {
-  color: darken(#999, 5%);
-  background-color: darken(#f6f6f6, 5%);
+  color: darken($darkergray, 5%);
+  background-color: darken($lightgray, 5%);
 }
 
 .list-title {
@@ -23,15 +25,15 @@
   margin-top: 5px;
   padding: 3px 5px;
   border-top: 1px solid #f3f3f3;
-  border-bottom: 1px solid #eee;
-  background: #f6f6f6;
+  border-bottom: 1px solid $gray;
+  background: $lightgray;
   font-size: 11px;
   color: #ccc;
   text-transform: uppercase;
 }
 
 .list-title:hover {
-  background-color: darken(#f6f6f6, 5%);
+  background-color: darken($lightgray, 5%);
 }
 
 .friends-list > a {
@@ -56,8 +58,8 @@
 }
 
 .friends-list li:hover {
-  color: darken(#999, 5%);
-  background-color: darken(#f6f6f6, 5%);
+  color: darken($darkergray, 5%);
+  background-color: darken($lightgray, 5%);
 }
 
 

@@ -1,3 +1,5 @@
+@import '../colors';
+
 .dropdown-enter {
   max-height: 0;
   transition: max-height 150ms ease;
@@ -37,6 +39,6 @@
 }
 
 .instant-dropdown > li:hover {
-  background: #5bc5a7;
+  background: $mint;
   color: #fff;
 }

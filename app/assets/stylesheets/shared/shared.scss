@@ -1,26 +1,9 @@
-.testclass {
-
-}
-
-.testclass > h6 {
-  color: blue;
-}
-
-#testclass-right-sidebar {
-  width: 180px;
-}
-// TODO: Remove testclass
-$mint: #5bc5a7;
-$orange: #ff652f;
-$lightgray: #f6f6f6;
-$gray: #eee;
-$darkgray: #ddd;
-$darkergray: #999;
+@import '../colors';
 
 .wrapper {
   margin: 0 0 -114px;
   min-height: 100%;
-  height: auto !important;
+  height: auto;
   display: flex;
 }
 
@@ -72,7 +55,7 @@ strong {
   box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
-.center-panel > header {
+.center-panel header {
   display: flex;
   justify-content: space-between;
   background: $gray;
@@ -80,7 +63,7 @@ strong {
   border-bottom: 1px solid $darkgray;
 }
 
-.center-panel > header h2 {
+.center-panel header h2 {
   font-weight: bold;
   font-size: 24px;
 }
@@ -88,6 +71,7 @@ strong {
 .center-panel button {
   padding: 10px 15px;
   margin-left: 10px;
+  font-size: 15px;
 }
 
 .center-panel-items {
