@@ -26,13 +26,13 @@ ActiveRecord::Schema.define(version: 20170220163624) do
   end
 
   create_table "bills", force: :cascade do |t|
-    t.string   "category",    default: "uncategorized", null: false
-    t.string   "description",                           null: false
-    t.integer  "total",                                 null: false
-    t.date     "date",                                  null: false
+    t.string   "category",    default: "General", null: false
+    t.string   "description",                     null: false
+    t.integer  "total",                           null: false
+    t.date     "date",                            null: false
     t.string   "notes"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "debts", force: :cascade do |t|

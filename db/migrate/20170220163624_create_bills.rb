@@ -1,7 +1,7 @@
 class CreateBills < ActiveRecord::Migration[5.0]
   def change
     create_table :bills do |t|
-      t.string :category, null: false, default: 'uncategorized'
+      t.string :category, null: false, default: 'General'
       t.string :description, null: false
       t.integer :total, null: false
       t.date :date, null: false
