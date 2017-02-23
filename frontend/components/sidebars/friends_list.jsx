@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getFriends } from '../../actions/friend_actions';
-import { friendsArray } from '../../reducers/selectors';
+import { objectToArray } from '../../reducers/selectors';
 import InviteFriend from '../forms/invite_friend';
 
 class FriendsList extends React.Component {
@@ -60,7 +60,7 @@ class FriendsList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    friends: friendsArray(state.friends)
+    friends: objectToArray(state.friends)
   };
 };
 

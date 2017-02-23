@@ -30,8 +30,9 @@ class ExpenseItem extends React.Component {
 
   render() {
     const {bill, debt, debtDirection} = this.props;
-    const month = new Date(bill.date).toLocaleDateString('en-US', {month: 'short'});
-    const day = new Date(bill.date).toLocaleDateString('en-US', {day: 'numeric'});
+    const date = new Date(bill.date);
+    const month = date.toLocaleDateString('en-US', {month: 'short'});
+    const day = date.toLocaleDateString('en-US', {day: 'numeric'});
     return (
       <div className="expense-item">
         <summary>

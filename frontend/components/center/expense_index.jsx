@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getBills, deleteBill } from '../../actions/bill_actions';
 import ExpenseItem from './expense_item';
-import { billsArray, billsWithFriend } from '../../reducers/selectors';
+import { objectToArray } from '../../reducers/selectors';
 
 class ExpenseIndex extends React.Component {
   constructor(props) {
@@ -32,7 +32,6 @@ class ExpenseIndex extends React.Component {
           return null;
         }
 
-
       } else {
         return (
           <li className="expense bill">
@@ -53,10 +52,15 @@ class ExpenseIndex extends React.Component {
       });
     }
 
+    let headerContent = "All Expenses";
+    if (this.props.friend) {
+      headerContent = this.props.friend.name;
+    }
+
     return (
       <div>
         <header>
-          <h2>All Expenses</h2>
+          <h2>{headerContent}</h2>
           <div>
             <button id='add-bill-btn' className='btn btn-signup'>Add a bill</button>
             <button id='settle-btn' className='btn btn-login'>Settle up</button>
@@ -73,7 +77,7 @@ class ExpenseIndex extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    bills: billsArray(state.bills),
+    bills: objectToArray(state.bills),
     friend: ownProps.friend
   };
 };

@@ -1,7 +1,6 @@
 import { RECEIVE_FRIENDS,
   RECEIVE_FRIEND,
-  REMOVE_FRIEND,
-  RECEIVE_SEARCH
+  REMOVE_FRIEND
 } from '../actions/friend_actions';
 
 const friendsReducer = (state = {}, action) => {
@@ -9,8 +8,6 @@ const friendsReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_FRIENDS:
       return action.friends;
-    case RECEIVE_SEARCH:
-      return Object.assign({}, state, {search: action.friends});
     case RECEIVE_FRIEND:
       return Object.assign({}, state, {[action.friend.id]: action.friend});
     case REMOVE_FRIEND:

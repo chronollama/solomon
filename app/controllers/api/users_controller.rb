@@ -27,4 +27,9 @@ class Api::UsersController < ApplicationController
       render json: ['User not found'], status: 404
     end
   end
+
+  def index
+    @users = User.where("users.email LIKE '%#{params[:query]}%'") - current_user.friends
+    render :index
+  end
 end

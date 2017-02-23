@@ -61,8 +61,8 @@ class User < ActiveRecord::Base
   end
 
   def search_friends(query)
-    first_match = requested_friends.where("users.name LIKE '%#{query}%'")
-    second_match = received_friends.where("users.name LIKE '%#{query}%'")
+    first_match = requested_friends.where("users.name LIKE '%#{query}%' OR users.email LIKE '%#{query}%'")
+    second_match = received_friends.where("users.name LIKE '%#{query}%' OR users.email LIKE '%#{query}%'")
     first_match + second_match
   end
 
