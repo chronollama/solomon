@@ -16,6 +16,7 @@ class Bill < ActiveRecord::Base
   validates :category, :description, :total, :date, presence: true
   validates :total, numericality: { greater_than_or_equal_to: 0 }
   before_create :format_total
+  # TODO: check if shares sum to bill total
 
   has_many :debts, dependent: :destroy
   has_many :bill_shares, dependent: :destroy
@@ -44,7 +45,11 @@ class Bill < ActiveRecord::Base
     make_records(shares, bill_params)
   end
 
-  def convert_to_dollars(amount)
+  def self.convert_to_cents(amount)
+    (amount.to_f * 100).to_i
+  end
+
+  def self.convert_to_dollars(amount)
     amount / 100.0
   end
 
@@ -121,9 +126,5 @@ class Bill < ActiveRecord::Base
 
   def format_total
     self.total = convert_to_cents(total)
-  end
-
-  def convert_to_cents(amount)
-    (amount.to_f * 100).to_i
   end
 end

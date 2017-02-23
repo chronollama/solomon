@@ -3,7 +3,7 @@
 #left-sidebar {
   position: relative;
   padding: 14px 20px 0 0px;
-  width: 200px;
+  min-width: 200px;
   z-index: 3;
   color: $darkergray;
 }
