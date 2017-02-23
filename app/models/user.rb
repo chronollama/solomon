@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     class_name: :Friendship,
     primary_key: :id,
     foreign_key: :user_id
-    
+
   has_many :received_friendships,
     class_name: :Friendship,
     primary_key: :id,
@@ -58,6 +58,12 @@ class User < ActiveRecord::Base
 # TODO: cut this down to 1 server query
   def friends
     requested_friends + received_friends
+  end
+
+  def search_friends(query)
+    first_match = requested_friends.where("users.name LIKE '%#{query}%'")
+    second_match = received_friends.where("users.name LIKE '%#{query}%'")
+    first_match + second_match
   end
 
   def add_friend(friend_id)

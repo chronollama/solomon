@@ -27,3 +27,11 @@ export const deleteFriend = (id) => {
     url: `api/friendships/${id}`
   });
 };
+
+export const searchFriends = (query) => {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/friendships',
+    data: {query}
+  });
+};

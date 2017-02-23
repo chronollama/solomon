@@ -2,7 +2,11 @@ class Api::FriendshipsController < ApplicationController
   before_action :ensure_friends, only: [:show, :destroy]
 
   def index
-    @friends = current_user.friends
+    if params[:query]
+      @friends = current_user.search_friends(params[:query])
+    else
+      @friends = current_user.friends
+    end
     render :index
   end
 
