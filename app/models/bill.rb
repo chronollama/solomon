@@ -59,7 +59,7 @@ class Bill < ActiveRecord::Base
     shares.each do |user_id, paid|
       BillShare.create!(
         due: split.first,
-        paid: convert_to_cents(paid),
+        paid: Bill.convert_to_cents(paid),
         bill_id: self.id,
         user_id: user_id
       )
@@ -125,6 +125,6 @@ class Bill < ActiveRecord::Base
   end
 
   def format_total
-    self.total = convert_to_cents(total)
+    self.total = Bill.convert_to_cents(total)
   end
 end
