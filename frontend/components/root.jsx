@@ -24,6 +24,7 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/"  component={App}>
+          <IndexRedirect to="/dashboard" />
           <Route path="/login" component={LoginForm} onEnter={_redirectIfLoggedIn}/>
           <Route path="/dashboard" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
           <Route path="/activity" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>

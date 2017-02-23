@@ -47,7 +47,7 @@ class Header extends React.Component {
       return (
         <header className='header'>
           <div className='header-flex'>
-            <a href='/'>Solomon</a>
+            <Link to='/dashboard'>Solomon</Link>
             <button className='btn btn-profile' onClick={this.toggleProfileMenu}>
               {currentUser.name}
               <ProfileDropdown hidden={this.state.hiddenProfile} logout={this.logout}/>
