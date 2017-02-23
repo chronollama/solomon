@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getFriend } from '../../actions/friend_actions';
+import ExpenseIndex from './expense_index';
 
 class FriendDetails extends React.Component {
   constructor(props) {
@@ -37,26 +38,27 @@ class FriendDetails extends React.Component {
     if (this.state.fetching) {
       return null;
     }
-
     return (
-      <div>
-        <header>
-          <h2>{friend.name}</h2>
-          <div>
-            <button id='add-bill-btn' className='btn btn-signup'>Add a bill</button>
-            <button id='settle-btn' className='btn btn-login'>Settle up</button>
-          </div>
-        </header>
-
-
-        <section className="center-panel-items">
-          Transactions and bills with this friend
-          {this.friendHistory}
-        </section>
-      </div>
+      <ExpenseIndex friend={friend}/>
     );
   }
 }
+
+// <div>
+//   <header>
+//     <h2>{friend.name}</h2>
+//     <div>
+//       <button id='add-bill-btn' className='btn btn-signup'>Add a bill</button>
+//       <button id='settle-btn' className='btn btn-login'>Settle up</button>
+//     </div>
+//   </header>
+//
+//
+//   <section className="center-panel-items">
+//     Transactions and bills with this friend
+//     {this.friendHistory}
+//   </section>
+// </div>
 
 const mapStateToProps = (state, ownProps) => {
   return {

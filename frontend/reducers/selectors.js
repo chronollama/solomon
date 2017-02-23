@@ -5,9 +5,10 @@ export const friendsArray = (friends) => {
 };
 
 export const billsArray = (bills) => {
-  return Object.keys(bills).map((key) => {
+  const result = Object.keys(bills).map((key) => {
     return bills[key];
   });
+  return result;
 };
 
 export const debtDirection = (currentUserId, debtorId) => {

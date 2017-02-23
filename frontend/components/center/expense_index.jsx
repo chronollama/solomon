@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getBills, deleteBill } from '../../actions/bill_actions';
 import ExpenseItem from './expense_item';
-import { billsArray } from '../../reducers/selectors';
+import { billsArray, billsWithFriend } from '../../reducers/selectors';
 
 class ExpenseIndex extends React.Component {
   constructor(props) {
@@ -17,12 +17,29 @@ class ExpenseIndex extends React.Component {
   }
 
   mapDebtsToItems(bill) {
-    return Object.keys(bill.debts).map((debtId) => {
-      return (
-        <li className="expense bill">
-          <ExpenseItem key={debtId} bill={bill} debt={bill.debts[debtId]}/>
-        </li>
-      );
+    const debts = bill.debts;
+    return Object.keys(debts).map((debtId) => {
+
+      if (this.props.friend) {
+        const friend = this.props.friend;
+        if (debts[debtId].debtor_id === friend.id || debts[debtId].creditor_id === friend.id) {
+          return (
+            <li className="expense bill">
+              <ExpenseItem key={debtId} bill={bill} debt={debts[debtId]}/>
+            </li>
+          );
+        } else {
+          return null;
+        }
+
+
+      } else {
+        return (
+          <li className="expense bill">
+            <ExpenseItem key={debtId} bill={bill} debt={debts[debtId]}/>
+          </li>
+        );
+      }
     });
   }
 
@@ -40,7 +57,7 @@ class ExpenseIndex extends React.Component {
       <div>
         <header>
           <h2>All Expenses</h2>
-          <div className="asdf">
+          <div>
             <button id='add-bill-btn' className='btn btn-signup'>Add a bill</button>
             <button id='settle-btn' className='btn btn-login'>Settle up</button>
           </div>
@@ -54,10 +71,10 @@ class ExpenseIndex extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const bills = (state.bills) ? billsArray(state.bills) : [];
+const mapStateToProps = (state, ownProps) => {
   return {
-    bills
+    bills: billsArray(state.bills),
+    friend: ownProps.friend
   };
 };
 

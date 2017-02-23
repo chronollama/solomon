@@ -8,6 +8,7 @@ class ExpenseItem extends React.Component {
     super(props);
     this.state = {
 
+      // TODO: dropdown for more detail on a bill
     };
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -63,7 +64,7 @@ class ExpenseItem extends React.Component {
     );
   }
 }
-// TODO: red delete button for expense items
+// TODO: hover over expense-item to cause delete button to appear
 
 const mapStateToProps = (state, ownProps) => {
   return {
