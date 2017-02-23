@@ -9,6 +9,13 @@ class ExpenseItem extends React.Component {
     this.state = {
 
     };
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(id) {
+    return (e) => {
+      this.props.deleteBill(id);
+    };
   }
 
   message() {
@@ -22,11 +29,15 @@ class ExpenseItem extends React.Component {
 
   render() {
     const {bill, debt, debtDirection} = this.props;
-    const date = new Date(bill.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+    const month = new Date(bill.date).toLocaleDateString('en-US', {month: 'short'});
+    const day = new Date(bill.date).toLocaleDateString('en-US', {day: 'numeric'});
     return (
       <div className="expense-item">
         <summary>
-          <div id="asdf" className="expense-detail date">{date}</div>
+          <div className="expense-detail date">
+            <div className="month">{month}</div>
+            <div className="day">{day}</div>
+          </div>
           <div className="expense-detail category">{bill.category}</div>
           <div className="expense-detail description">{bill.description}</div>
         </summary>
@@ -44,7 +55,7 @@ class ExpenseItem extends React.Component {
             </div>
           </div>
 
-          <button className="delete-expense">
+          <button className="delete-expense" onClick={this.handleDelete(bill.id)}>
             <i className="fa fa-times" aria-hidden="true"></i>
           </button>
         </summary>

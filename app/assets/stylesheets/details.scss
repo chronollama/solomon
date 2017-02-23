@@ -1,0 +1,92 @@
+@import './colors';
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $gray;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.expense-item:hover {
+  background: $lightgray;
+}
+
+.expense-item > summary {
+  display: flex;
+  align-items: center;
+}
+
+.expense-item button {
+  color: $red;
+  font-weight: bold;
+}
+
+.expense-item button:hover {
+  text-decoration: underline;
+}
+
+.expense-detail {
+  padding-right: 5px;
+}
+
+.date {
+  color: $darkergray;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.month {
+  font-size: 14px;
+  margin-bottom: -10px;
+}
+
+.day {
+  font-size: 20px;
+}
+
+.category {
+
+}
+
+.description {
+  font-weight: bold;
+}
+
+.description:hover {
+  text-decoration: underline;
+}
+
+.cost {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.paid {
+  text-align: right;
+  padding-right: 10px;
+  font-size: 18px;
+}
+
+.lent {
+  text-align: left;
+  font-size: 18px;
+}
+
+.cost h6 {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: $darkergray;
+  font-size: 13px;
+  text-overflow: ellipsis;
+}
+
+.debtor {
+  color: $orange
+}
+
+.creditor {
+  color: $mint
+}
