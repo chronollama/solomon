@@ -15,6 +15,8 @@ class InviteFriend extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.fillInput = this.fillInput.bind(this);
+    this.clearAndClose = this.clearAndClose.bind(this);
+    this.hideSearchList = this.hideSearchList.bind(this);
   }
 
   componentWillMount() {
@@ -31,41 +33,56 @@ class InviteFriend extends React.Component {
     );
   }
 
+  hideSearchList() {
+    this.setState({showSearchList: false});
+  }
+
   handleInput(e) {
     this.setState({email: e.currentTarget.value});
     if (e.currentTarget.value.length > 2) {
       this.props.searchUsers(e.currentTarget.value);
       this.setState({showSearchList: true});
     } else {
-      this.setState({showSearchList: false});
+      this.hideSearchList();
     }
   }
 
   fillInput(email) {
     return (e) => {
-      this.setState({email, showSearchList: false});
+      this.setState({email});
     };
   }
 
   searchResults() {
     if (this.state.showSearchList) {
-      const users = this.props.search.map((search) => {
-        return (
-          <li key={search.id} className="result" onClick={this.fillInput(search.email)}>
-            <div className="result-name">{search.name}</div>
-            <div className="result-email">{search.email}</div>
-          </li>
-        );
-      });
+      let users = <li>No results found</li>;
+
+      if (this.props.search.length > 0) {
+        users = this.props.search.map((search) => {
+          return (
+            <li key={search.id} className="result" onClick={this.fillInput(search.email)}>
+              <div className="result-name">{search.name}</div>
+              <div className="result-email">{search.email}</div>
+            </li>
+          );
+        });
+      }
 
       return (
         <ul className="search-results">
           {users}
         </ul>
       );
+
     } else {
       return null;
     }
+  }
+
+  clearAndClose() {
+    this.setState({email: ''});
+    this.hideSearchList();
+    this.props.closeAddFriend();
   }
 
   render() {
@@ -73,18 +90,17 @@ class InviteFriend extends React.Component {
       <Modal isOpen={this.props.open}
         className="invite"
         overlayClassName="invite-overlay"
-        onRequestClose={this.props.closeAddFriend}
+        onRequestClose={this.clearAndClose}
         contentLabel="Invite Form">
-        <form id="invite-form" className="invite-form">
+        <form id="invite-form" className="invite-form" onClick={this.hideSearchList}>
+          <h2>Add friend</h2>
           <div>
-            <h2>Add friend</h2>
+            <input className="input-text" type="text" onChange={this.handleInput}
+              placeholder="Email address" value={this.state.email}/>
+            {this.searchResults()}
+            <button className="btn btn-signup"
+              onClick={this.handleSubmit}>Add friend</button>
           </div>
-          <input className="input-text" type="text" onChange={this.handleInput}
-            placeholder="Email address" value={this.state.email}/>
-          {this.searchResults()}
-          <h6>Send a friend request to someone already on Solomon</h6>
-          <button className="btn btn-signup"
-            onClick={this.handleSubmit}>Add friend</button>
         </form>
       </Modal>
     );
