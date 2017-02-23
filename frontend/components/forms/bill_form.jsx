@@ -1,24 +1,33 @@
 import React from 'react';
+import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { addBill, updateBill } from '../../actions/bill_actions';
-import { searchFriends } from '../../actions/search_actions';
-import Modal from 'react-modal';
+import Share from './share';
 
 class BillForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: '',
+      category: 'General',
       description: '',
       total: '',
-      date: Date.now(),
-      // TODO new Datenow?
+      date: new Date(),
       notes: '',
-      bill_shares: null
-      // TODO best way to pass up bill_shares?
+
+      shares: [
+        {id: this.props.currentUser.id, name: this.props.currentUser.name, amount: ''},
+        {id: null, name: '', amount: ''},
+      ]
     };
     this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateShare = this.updateShare.bind(this);
+    this.removeShare = this.removeShare.bind(this);
+  }
+
+  componentWillMount() {
+    Modal.setAppElement('body');
   }
 
   handleInput(property) {
@@ -27,52 +36,128 @@ class BillForm extends React.Component {
     };
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const bill = Object.assign({}, this.state);
-    delete bill[bill_shares];
-    this.props.addBill();
+  handleSelect(e) {
+    this.setState({category: e.currentTarget.value});
   }
 
-  defaultDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    let month = (date.getMonth() + 1).toString();
-    let day = date.getDate().toString();
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //
+  //
+  //   this.props.addBill();
+  // }
+
+  addShare() {
+    const newShares = Object.assign({}, this.state.shares);
+    newShares.push({id: null, name: '', amount: ''});
+    this.setState({shares: newShares});
+  }
+
+  removeShare(idx) {
+    const newShares = Object.assign({}, this.state.shares);
+    delete newShares[idx];
+    this.setState({shares: newShares});
+  }
+
+  updateShare(shareData) {
+    const {idx, id, amount} = {shareData};
+    let newShares = Object.assign({}, this.state.shares);
+    newShares[idx] = {[id]: amount};
+    this.setState({shares: newShares});
+  }
+
+  formatDate() {
+    const year = this.state.date.getFullYear();
+    let month = (this.state.date.getMonth() + 1).toString();
+    let day = this.state.date.getDate().toString();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
     return `${year}-${month}-${day}`;
   }
 
+  categorySelect() {
+    const categories = ["General", "Entertainment", "Food", "Home", "Life", "Transportation", "Utilities"];
+    const options = categories.map((category, idx) => {
+      return (
+        <option key={idx} value={category}>
+          {category}
+        </option>
+      );
+    });
+
+    return (
+      <select value={this.state.category} onChange={this.handleSelect}>
+        {options}
+      </select>
+    );
+  }
+
+  handleShares(idx, property) {
+    return (e) => {
+      let newShares = Object.assign({}, this.state.shares);
+      newShares[idx] = Object.assign(newShares[idx], {[property]: e.currentTarget.value});
+      this.setState({shares: newShares});
+    };
+  }
+
+  renderShares() {
+    const shares = this.state.shares.map((share, idx) => {
+      return (
+        <li key={idx}>
+          <Share id={share.id} name={share.name} amount={share.amount} idx={idx}
+            updateShare={this.updateShare} removeShare={this.removeShare}/>
+        </li>
+      );
+    });
+    return <ul>{shares}</ul>;
+  }
 
   render() {
     return (
-      <form className="testclass">
-        <label>With you and:
-          <input type="text"></input>
-        </label>
-        <input type="text" placeholder="Enter a description"
-          onChange={this.handleInput("description")} value={this.state.description}/>
-        <input type="number" placeholder="0.00"
-          onChange={this.handleInput("total")} value={this.state.total}/>
-        <input type="date" defaultValue={this.defaultDate()}/>
-        <input type="text" placeholder="Add notes"
-          onChange={this.handleInput("notes")} value={this.state.notes}/>
-      </form>
+      <Modal isOpen={this.props.open}
+        className="invite"
+        overlayClassName="invite-overlay"
+        contentLabel="Bill Form">
+
+        <form className="bill-form">
+          <h2>Add Bill</h2>
+          <div>
+            {this.categorySelect()}
+            <input type="date" defaultValue={this.formatDate()}/>
+          </div>
+
+          <div>
+            <input type="text" placeholder="Description"
+              onChange={this.handleInput("description")} value={this.state.description}/>
+
+            <span className="currency">$</span>
+            <input type="number" placeholder="0.00"
+              onChange={this.handleInput("total")} value={this.state.total}/>
+
+            <textarea value={this.state.notes} placeholder="Notes"
+              onChange={this.handleInput("notes")}/>
+          </div>
+
+          <div>
+            {this.renderShares()}
+          </div>
+        </form>
+      </Modal>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    search: state.search
+    currentUser: state.session.currentUser
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    searchFriends: (query) => dispatch(searchFriends(query))
+    addBill: (bill, shares) => dispatch(addBill(bill, shares)),
+    updateBill: (bill, shares) => dispatch(updateBill(bill, shares))
   };
 };
 

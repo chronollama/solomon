@@ -1,19 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getBills, deleteBill } from '../../actions/bill_actions';
-import ExpenseItem from './expense_item';
 import { objectToArray } from '../../reducers/selectors';
+import ExpenseItem from './expense_item';
+import BillForm from '../forms/bill_form';
 
 class ExpenseIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetching: true
+      fetching: true,
+      showBillForm: true
+      // TODO: change showBillForm to false when done testing
     };
+    this.openBillForm = this.openBillForm.bind(this);
   }
 
   componentDidMount() {
     this.props.getBills().then(this.setState({fetching: false}));
+  }
+
+  openBillForm() {
+    this.setState({showBillForm: true});
   }
 
   mapDebtsToItems(bill) {
@@ -62,7 +70,9 @@ class ExpenseIndex extends React.Component {
         <header>
           <h2>{headerContent}</h2>
           <div>
-            <button id='add-bill-btn' className='btn btn-signup'>Add a bill</button>
+            <button id='add-bill-btn' className='btn btn-signup'
+              onClick={this.openBillForm}>Add a bill</button>
+            <BillForm open={this.state.showBillForm}/>
             <button id='settle-btn' className='btn btn-login'>Settle up</button>
           </div>
         </header>
