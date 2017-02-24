@@ -10,18 +10,11 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hiddenProfile: true,
-      hiddenAlert: true
+      hiddenProfile: true
     };
     this.toggleProfileMenu = this.toggleProfileMenu.bind(this);
     this.guestLogin = this.guestLogin.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.errors.length > 0) {
-      this.setState({hiddenAlert: false});
-    }
   }
 
   toggleProfileMenu() {
@@ -52,6 +45,7 @@ class Header extends React.Component {
               {currentUser.name}
               <ProfileDropdown hidden={this.state.hiddenProfile} logout={this.logout}/>
             </button>
+            <AlertBar />
           </div>
         </header>
       );
@@ -75,7 +69,7 @@ class Header extends React.Component {
               <Link to="/signup">Sign up</Link>
             </button>
           </div>
-          <AlertBar hidden={this.state.hiddenAlert} source="login"/>
+          <AlertBar />
         </div>
       </header>
     );
@@ -84,8 +78,7 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.session.currentUser,
-    errors: state.session.errors
+    currentUser: state.session.currentUser
   };
 };
 

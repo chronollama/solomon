@@ -2,7 +2,9 @@ import React from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { addBill, updateBill } from '../../actions/bill_actions';
+import { receiveBillErrors } from '../../actions/error_actions';
 import Share from './share';
+import AlertBar from '../header/alert_bar';
 
 class BillForm extends React.Component {
   constructor(props) {
@@ -44,9 +46,27 @@ class BillForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const {category, description, total, date, notes} = this.state;
-    const shares = this.formatShareData(this.state.shares);
-    this.props.addBill({ category, description, total, date, notes }, shares);
+    if (this.validateShareSum()) {
+      const {category, description, total, date, notes} = this.state;
+      const shares = this.formatShareData(this.state.shares);
+      this.props.addBill({ category, description, total, date, notes }, shares);
+      this.clearAndClose();
+    } else {
+      return null;
+    }
+  }
+
+  validateShareSum() {
+    let valid = true;
+    let sum = 0;
+    this.state.shares.forEach((share) => {
+      sum = sum + Number(share.amount)
+    })
+    if (sum !== Number(this.state.total)) {
+      valid = false;
+      this.props.receiveBillErrors(["Individual shares must add up to the bill total."]);
+    }
+    return valid;
   }
 
   formatShareData(shares) {
@@ -149,6 +169,14 @@ class BillForm extends React.Component {
     return <ul>{billShares}</ul>;
   }
 
+  alertBar() {
+    if (this.props.errors.length > 0) {
+      return <AlertBar />
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <Modal isOpen={this.props.open}
@@ -158,6 +186,7 @@ class BillForm extends React.Component {
         contentLabel="Bill Form">
 
         <form className="bill-form">
+          {this.alertBar()}
           <div className="bill-input">
             <h2>Add Bill</h2>
             <div>
@@ -180,7 +209,7 @@ class BillForm extends React.Component {
 
                 <div>
                   <span className="currency">$</span>
-                  <input className="amount" type="number" placeholder="0.00"
+                  <input className="amount" type="number" min="0" placeholder="0.00"
                     onChange={this.handleInput("total")} value={this.state.total}/>
                 </div>
               </div>
@@ -190,6 +219,7 @@ class BillForm extends React.Component {
               <textarea value={this.state.notes} placeholder="Notes"
                 onChange={this.handleInput("notes")}/>
             </div>
+            <button className="btn btn-login" onClick={this.handleSubmit}>Save</button>
           </div>
 
           <div className="shares-input bill-right">
@@ -200,7 +230,6 @@ class BillForm extends React.Component {
             </div>
           </div>
 
-          <button className="btn btn-login" onClick={this.handleSubmit}>Save</button>
         </form>
       </Modal>
     );
@@ -209,14 +238,16 @@ class BillForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
+    errors: state.errors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     addBill: (bill, shares) => dispatch(addBill(bill, shares)),
-    updateBill: (bill, shares) => dispatch(updateBill(bill, shares))
+    updateBill: (bill, shares) => dispatch(updateBill(bill, shares)),
+    receiveBillErrors: (err) => dispatch(receiveBillErrors(err))
   };
 };
 

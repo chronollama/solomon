@@ -47,7 +47,7 @@ class ExpenseItem extends React.Component {
         <summary>
           <div className="cost">
             <div className="paid">
-              <h6>Total</h6>
+              <h6>Paid</h6>
               <div>{bill.paid}</div>
             </div>
 

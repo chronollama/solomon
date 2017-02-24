@@ -1,4 +1,4 @@
-export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const RECEIVE_BILL_ERRORS = 'RECEIVE_BILL_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const clearErrors = () => {
@@ -7,9 +7,9 @@ export const clearErrors = () => {
   };
 };
 
-export const receiveErrors = (errors) => {
+export const receiveBillErrors = (errors) => {
   return {
-    type: RECEIVE_ERRORS,
+    type: RECEIVE_BILL_ERRORS,
     errors
   };
 };

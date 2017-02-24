@@ -36,10 +36,7 @@ export const getBills = () => {
 export const getBill = (id) => {
   return dispatch => {
     return APIUtil.getBill(id).then(
-      (bill) => {
-        debugger
-        dispatch(receiveBill(bill));
-      }
+      (bill) => dispatch(receiveBill(bill))
     );
   };
 };
@@ -47,10 +44,7 @@ export const getBill = (id) => {
 export const addBill = (bill, bill_shares) => {
   return dispatch => {
     return APIUtil.addBill(bill, bill_shares).then(
-      (res) => {
-        debugger
-        dispatch(getBill(res.id));
-      }
+      (res) => dispatch(getBill(res.id))
     );
   };
 };
