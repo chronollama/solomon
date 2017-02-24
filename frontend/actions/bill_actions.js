@@ -36,7 +36,10 @@ export const getBills = () => {
 export const getBill = (id) => {
   return dispatch => {
     return APIUtil.getBill(id).then(
-      (bill) => dispatch(receiveBill(bill))
+      (bill) => {
+        debugger
+        dispatch(receiveBill(bill));
+      }
     );
   };
 };
@@ -44,7 +47,10 @@ export const getBill = (id) => {
 export const addBill = (bill, bill_shares) => {
   return dispatch => {
     return APIUtil.addBill(bill, bill_shares).then(
-      (res) => dispatch(receiveBill(res))
+      (res) => {
+        debugger
+        dispatch(getBill(res.id));
+      }
     );
   };
 };
@@ -52,7 +58,7 @@ export const addBill = (bill, bill_shares) => {
 export const updateBill = (bill, bill_shares) => {
   return dispatch => {
     return APIUtil.updateBill(bill, bill_shares).then(
-      (res) => dispatch(receiveBill(res))
+      (res) => dispatch(getBill(res.id))
     );
   };
 };

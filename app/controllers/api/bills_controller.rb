@@ -16,7 +16,7 @@ class Api::BillsController < ApplicationController
   end
 
   def show
-    @bill = Bill.find(params[:id])
+    @bill = Bill.includes(:debts).find(params[:id])
     if @bill.user_ids.include?(current_user.id)
       render :show
     else

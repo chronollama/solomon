@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getBills, deleteBill } from '../../actions/bill_actions';
+import { getBills, getBill, deleteBill } from '../../actions/bill_actions';
 import { objectToArray } from '../../reducers/selectors';
 import ExpenseItem from './expense_item';
 import BillForm from '../forms/bill_form';
@@ -10,10 +10,10 @@ class ExpenseIndex extends React.Component {
     super(props);
     this.state = {
       fetching: true,
-      showBillForm: true
-      // TODO: change showBillForm to false when done testing
+      showBillForm: false
     };
     this.openBillForm = this.openBillForm.bind(this);
+    this.closeBillForm = this.closeBillForm.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +22,10 @@ class ExpenseIndex extends React.Component {
 
   openBillForm() {
     this.setState({showBillForm: true});
+  }
+
+  closeBillForm() {
+    this.setState({showBillForm: false});
   }
 
   mapDebtsToItems(bill) {
@@ -72,7 +76,7 @@ class ExpenseIndex extends React.Component {
           <div>
             <button id='add-bill-btn' className='btn btn-signup'
               onClick={this.openBillForm}>Add a bill</button>
-            <BillForm open={this.state.showBillForm}/>
+            <BillForm open={this.state.showBillForm} closeBillForm={this.closeBillForm}/>
             <button id='settle-btn' className='btn btn-login'>Settle up</button>
           </div>
         </header>
@@ -94,7 +98,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBills: () => dispatch(getBills())
+    getBills: () => dispatch(getBills()),
+    getBill: (id) => dispatch(getBill(id))
   };
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { debtDirection } from '../../reducers/selectors';
+import { debtDirection, objectToArray } from '../../reducers/selectors';
 import { updateBill, deleteBill } from '../../actions/bill_actions';
 
 class ExpenseItem extends React.Component {
