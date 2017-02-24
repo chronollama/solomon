@@ -44,10 +44,11 @@
 
 .login-large {
   padding-top: 20px;
+  color: $darkestgray;
 }
 
 .login-label {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 140%;
   margin: 5px 0;
 }
@@ -162,13 +163,13 @@
   border: 1px solid $darkergray;
   border-radius: 15px;
   background: $white;
-  height: 400px;
+  height: 423px;
 }
 
 .bill-input > div {
-  padding: 25px;
+  padding: 25px 25px 0 25px;
   display: flex;
-  height: 150px;
+  height: 140px;
   width: 450px;
 }
 
@@ -180,6 +181,10 @@
   border-radius: 7px;
   resize: none;
   overflow-y: scroll;
+}
+
+.bill-input > button {
+  margin-left: 25px;
 }
 
 .bill-center > div {
