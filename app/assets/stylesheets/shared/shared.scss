@@ -74,6 +74,30 @@ strong {
   font-size: 15px;
 }
 
-.center-panel-items {
+.search-results {
+  position: absolute;
+  background: $white;
+  border: 1px solid $darkgray;
+  border-radius: 3px;
+  top: 93px;
+  width: 405px;
+}
 
+.search-results li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $darkgray;
+  padding: 5px 10px;
+  height: 26px;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.search-results li:last-child {
+  border: none;
+}
+
+.search-results li:hover {
+  background: $gray;
 }

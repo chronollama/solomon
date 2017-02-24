@@ -7,9 +7,9 @@ class Share extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
-      name: '',
-      amount: '',
+      id: this.props.id,
+      name: this.props.name,
+      amount: this.props.amount,
       email: '',
       showSearchList: false,
       confirmed: false
@@ -18,6 +18,7 @@ class Share extends React.Component {
     this.handleConfirm = this.handleConfirm.bind(this);
     this.hideSearchList = this.hideSearchList.bind(this);
     this.fillInput = this.fillInput.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   hideSearchList() {
@@ -84,7 +85,7 @@ class Share extends React.Component {
         });
       }
       return (
-        <ul className="search-results">
+        <ul className="share-search-results">
           {friends}
         </ul>
       );
@@ -94,27 +95,43 @@ class Share extends React.Component {
     }
   }
 
+  nameInput() {
+    if (this.props.currentUser.id === this.props.id) {
+      return (
+        <div className="current-user-name">{this.props.currentUser.name}</div>
+      );
+    } else {
+      return (
+        <input className="input-text" type="text" placeholder="Name"
+          value={this.state.name} onChange={this.handleInput("name")}/>
+      );
+    }
+  }
+
   render() {
     if (this.state.confirmed) {
       return (
         <div className="confirmed">
-          <p>{this.state.name}</p>
-          <p>{this.state.email}</p>
-          <p>{this.state.amount}</p>
-          <button className="edit-share" onClick={handleEdit}>Change</button>
-          <button className="remove-share" onClick={this.props.removeShare}>Remove</button>
+          <div className="confirmed-details">
+            <p>{this.state.name}</p>
+            <p>${this.state.amount}</p>
+          </div>
+          <button className="btn btn-login" onClick={this.handleEdit}>Edit</button>
+          <button className="btn btn-signup" onClick={this.props.removeShare}>Remove</button>
         </div>
       );
     } else {
       return (
         <div className="unconfirmed" onClick={this.hideSearchList}>
-          <input className="input-text" type="text" placeholder="Name"
-            value={this.state.name} onChange={this.handleInput("name")}/>
+          {this.nameInput()}
           {this.searchResults()}
-          <input type="number" value={this.state.amount} placeholder="0.00"
-            onChange={this.handleInput("amount")}/>
-          <button onClick={this.handleConfirm}>Confirm</button>
-          <button className="remove-share" onClick={this.props.removeShare}>Remove</button>
+          <div>
+            <span className="currency">$</span>
+            <input className="input-text" type="number" value={this.state.amount} placeholder="0.00"
+              onChange={this.handleInput("amount")}/>
+          </div>
+          <button className="btn btn-login" onClick={this.handleConfirm}>Confirm</button>
+          <button className="btn btn-signup" onClick={this.props.removeShare}>Remove</button>
         </div>
       );
     }
@@ -123,7 +140,8 @@ class Share extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    search: objectToArray(state.search)
+    search: objectToArray(state.search),
+    currentUser: state.session.currentUser
   };
 };
 

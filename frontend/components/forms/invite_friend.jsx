@@ -88,8 +88,8 @@ class InviteFriend extends React.Component {
   render() {
     return (
       <Modal isOpen={this.props.open}
-        className="invite"
-        overlayClassName="invite-overlay"
+        className="form-modal"
+        overlayClassName="form-modal-overlay"
         onRequestClose={this.clearAndClose}
         contentLabel="Invite Form">
         <form id="invite-form" className="invite-form" onClick={this.hideSearchList}>

@@ -11,19 +11,21 @@ class BillForm extends React.Component {
       category: 'General',
       description: '',
       total: '',
-      date: new Date(),
+      date: this.formatDate(new Date()),
       notes: '',
 
       shares: [
         {id: this.props.currentUser.id, name: this.props.currentUser.name, amount: ''},
-        {id: null, name: '', amount: ''},
+        {id: null, name: '', amount: ''}
       ]
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.updateShare = this.updateShare.bind(this);
     this.removeShare = this.removeShare.bind(this);
+    this.addShare = this.addShare.bind(this);
+    this.clearAndClose = this.clearAndClose.bind(this);
   }
 
   componentWillMount() {
@@ -40,15 +42,39 @@ class BillForm extends React.Component {
     this.setState({category: e.currentTarget.value});
   }
 
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //
-  //
-  //   this.props.addBill();
-  // }
+  handleSubmit(e) {
+    e.preventDefault();
+    const {category, description, total, date, notes} = this.state;
+    const shares = this.formatShareData(this.state.shares);
+    this.props.addBill({ category, description, total, date, notes }, shares);
+  }
+
+  formatShareData(shares) {
+    const formattedShares = {};
+    shares.forEach((share) => {
+      Object.assign(formattedShares, {[share.id]: share.amount});
+    });
+    return formattedShares;
+  }
+
+  clearAndClose() {
+    this.props.closeBillForm();
+    this.setState({
+      category: 'General',
+      description: '',
+      total: '',
+      date: this.formatDate(new Date()),
+      notes: '',
+
+      shares: [
+        {id: this.props.currentUser.id, name: this.props.currentUser.name, amount: ''},
+        {id: null, name: '', amount: ''}
+      ]
+    });
+  }
 
   addShare() {
-    const newShares = Object.assign({}, this.state.shares);
+    const newShares = this.state.shares.slice();
     newShares.push({id: null, name: '', amount: ''});
     this.setState({shares: newShares});
   }
@@ -60,16 +86,16 @@ class BillForm extends React.Component {
   }
 
   updateShare(shareData) {
-    const {idx, id, amount} = {shareData};
-    let newShares = Object.assign({}, this.state.shares);
-    newShares[idx] = {[id]: amount};
+    const {idx, id, name, amount} = shareData;
+    let newShares = this.state.shares.slice();
+    newShares[idx] = {id, name, amount};
     this.setState({shares: newShares});
   }
 
-  formatDate() {
-    const year = this.state.date.getFullYear();
-    let month = (this.state.date.getMonth() + 1).toString();
-    let day = this.state.date.getDate().toString();
+  formatDate(date) {
+    const year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString();
+    let day = date.getDate().toString();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
@@ -87,7 +113,7 @@ class BillForm extends React.Component {
     });
 
     return (
-      <select value={this.state.category} onChange={this.handleSelect}>
+      <select value={this.state.category} onChange={this.handleInput("category")}>
         {options}
       </select>
     );
@@ -102,7 +128,17 @@ class BillForm extends React.Component {
   }
 
   renderShares() {
-    const shares = this.state.shares.map((share, idx) => {
+    const billShares = this.state.shares.map((share, idx) => {
+      if (idx === 0) {
+        const {currentUser} = this.props;
+        return (
+          <li key={idx}>
+            <Share id={currentUser.id} name={currentUser.name} amount={share.amount} idx={idx}
+              updateShare={this.updateShare} />
+          </li>
+        );
+      }
+
       return (
         <li key={idx}>
           <Share id={share.id} name={share.name} amount={share.amount} idx={idx}
@@ -110,38 +146,61 @@ class BillForm extends React.Component {
         </li>
       );
     });
-    return <ul>{shares}</ul>;
+    return <ul>{billShares}</ul>;
   }
 
   render() {
     return (
       <Modal isOpen={this.props.open}
-        className="invite"
-        overlayClassName="invite-overlay"
+        className="form-modal large-modal"
+        overlayClassName="form-modal-overlay"
+        onRequestClose={this.clearAndClose}
         contentLabel="Bill Form">
 
         <form className="bill-form">
-          <h2>Add Bill</h2>
-          <div>
-            {this.categorySelect()}
-            <input type="date" defaultValue={this.formatDate()}/>
+          <div className="bill-input">
+            <h2>Add Bill</h2>
+            <div>
+              <div className="bill-left">
+                <div className="category"><p>Category</p>{this.categorySelect()}</div>
+
+                <div>
+                  <p>Date</p>
+                  <input id="date-input" type="date"
+                    value={this.state.date} onChange={this.handleInput("date")}/>
+                </div>
+
+              </div>
+
+              <div className="bill-center">
+                <div>
+                  <input className="description" type="text" placeholder="Description"
+                    onChange={this.handleInput("description")} value={this.state.description}/>
+                </div>
+
+                <div>
+                  <span className="currency">$</span>
+                  <input className="amount" type="number" placeholder="0.00"
+                    onChange={this.handleInput("total")} value={this.state.total}/>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <textarea value={this.state.notes} placeholder="Notes"
+                onChange={this.handleInput("notes")}/>
+            </div>
           </div>
 
-          <div>
-            <input type="text" placeholder="Description"
-              onChange={this.handleInput("description")} value={this.state.description}/>
-
-            <span className="currency">$</span>
-            <input type="number" placeholder="0.00"
-              onChange={this.handleInput("total")} value={this.state.total}/>
-
-            <textarea value={this.state.notes} placeholder="Notes"
-              onChange={this.handleInput("notes")}/>
-          </div>
-
-          <div>
+          <div className="shares-input bill-right">
+            <h2>Choose Payer</h2>
             {this.renderShares()}
+            <div className="add-share">
+              <button onClick={this.addShare}>Add person</button>
+            </div>
           </div>
+
+          <button className="btn btn-login" onClick={this.handleSubmit}>Save</button>
         </form>
       </Modal>
     );
