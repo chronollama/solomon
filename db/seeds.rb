@@ -69,7 +69,7 @@ bill1 = Bill.new(category: 'Entertainment', description: 'Star Wars XIV', total:
 shares1 = {user1.id => 0, user2.id => 50,user3.id => 0,user4.id => 0}
 bill1.make_records(shares1)
 
-bill2 = Bill.new(category: 'Life' description: 'Dog!', total: 400, date: Date.parse('12-2-2017'))
+bill2 = Bill.new(category: 'Life', description: 'Dog!', total: 400, date: Date.parse('12-2-2017'))
 shares2 = {user1.id => 100, user2.id => 300}
 bill2.make_records(shares2)
 
