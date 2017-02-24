@@ -24,7 +24,7 @@ class Header extends React.Component {
   guestLogin(e) {
     e.preventDefault();
     this.props.login({email: 'guest@solomon.com', password: 'solomon'}).then(
-      () => hashHistory.push('/dashboard')
+      () => hashHistory.push('/expenses')
     );
   }
 
@@ -40,7 +40,7 @@ class Header extends React.Component {
       return (
         <header className='header'>
           <div className='header-flex'>
-            <Link to='/dashboard'>Solomon</Link>
+            <Link to='/expenses'>Solomon</Link>
             <button className='btn btn-profile' onClick={this.toggleProfileMenu}>
               {currentUser.name}
               <ProfileDropdown hidden={this.state.hiddenProfile} logout={this.logout}/>

@@ -10,7 +10,7 @@ import BillForm from './forms/bill_form';
 const Root = ({ store }) => {
   const _redirectIfLoggedIn = (nextState, replace) => {
     if (store.getState().session.currentUser) {
-      replace('/dashboard');
+      replace('/expenses');
     }
   };
 
@@ -24,7 +24,7 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/"  component={App}>
-          <IndexRedirect to="/dashboard" />
+          <IndexRedirect to="/expenses" />
           <Route path="/login" component={LoginForm} onEnter={_redirectIfLoggedIn}/>
           <Route path="/dashboard" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
           <Route path="/activity" component={MainDisplay} onEnter={_redirectUnlessLoggedIn}/>
