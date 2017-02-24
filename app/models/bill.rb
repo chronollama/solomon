@@ -3,7 +3,7 @@
 # Table name: bills
 #
 #  id          :integer          not null, primary key
-#  category    :string           default("uncategorized"), not null
+#  category    :string           default("General"), not null
 #  description :string           not null
 #  total       :integer          not null
 #  date        :date             not null
