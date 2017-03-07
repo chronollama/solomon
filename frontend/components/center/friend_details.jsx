@@ -17,8 +17,10 @@ class FriendDetails extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.friends) {
-      this.setState({fetching: false});
+
+    if (newProps.friends) { this.setState({fetching: false}); }
+    if (newProps.params.id !== this.props.params.id) {
+      this.props.getFriend(newProps.params.id);
     }
   }
 
