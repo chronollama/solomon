@@ -1,0 +1,21 @@
+@import './colors';
+
+.dashboard-summary {
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: $darkergray;
+  font-size: 15px;
+}
+
+.dashboard-main > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: $darkergray;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: bold;
+}

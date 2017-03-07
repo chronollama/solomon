@@ -1,11 +1,12 @@
 import React from 'react';
-import FriendDetails from './friend_details';
+import Dashboard from './dashboard';
 import ExpenseIndex from './expense_index';
+import FriendDetails from './friend_details';
 
 const componentToRender = (displayType) => {
   switch (displayType) {
     case '/dashboard':
-      return (<p>Dashboard</p>);
+      return (<Dashboard/>);
     case '/activity':
       return (<p>Recent activity</p>);
     case '/expenses':

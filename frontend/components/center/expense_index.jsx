@@ -71,13 +71,15 @@ class ExpenseIndex extends React.Component {
 
     return (
       <div>
-        <header>
+        <header className="center-header">
           <h2>{headerContent}</h2>
-          <div>
+          <div className="center-header-btns">
             <button id='add-bill-btn' className='btn btn-signup'
               onClick={this.openBillForm}>Add a bill</button>
-            <BillForm open={this.state.showBillForm} closeBillForm={this.closeBillForm}/>
-            <button id='settle-btn' className='btn btn-login'>Settle up</button>
+            <BillForm open={this.state.showBillForm}
+              closeBillForm={this.closeBillForm}/>
+            <button id='settle-btn' className='btn btn-login'>
+              Settle up</button>
           </div>
         </header>
 

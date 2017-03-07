@@ -48,7 +48,6 @@ class Api::BillsController < ApplicationController
     @bill_share = @bill.bill_shares[0]
     if @bill
       @bill.destroy
-      debugger
       render :show
     else
       render json: @bill.errors.full_messages, status: 422
