@@ -36,7 +36,31 @@ class RightSidebar extends React.Component {
         return (<h2>NO BUTTONS</h2>);
     }
   }
-  // TODO: show tooltip text on hover over buttons 
+  // TODO: show tooltip text on hover over buttons
+  content() {
+    let net;
+    if (this.props.friend) { net = this.props.friend.net; }
+    if (net) {
+      if (net.status === "debtor") {
+        return  (
+          <div>
+            <p className="debtor">You owe {this.props.friend.name}</p>
+            <p className="debtor net">{net.amount}</p>
+          </div>
+        );
+
+      } else if (net.status === "creditor") {
+        return (
+          <div>
+            <p className="creditor">{this.props.friend.name} owes you</p>
+            <p className="creditor net">{net.amount}</p>
+          </div>
+        );
+      } else {
+        return <p>You are all settled up</p>;
+      }
+    }
+  }
 
   render() {
     return (
@@ -45,11 +69,19 @@ class RightSidebar extends React.Component {
 
         <div className="right-summary">
           {this.summaryTitle()}
-
+          {this.content()}
         </div>
       </nav>
     );
   }
 }
 
-export default RightSidebar;
+const mapStateToProps = (state, ownProps) => {
+  let friend;
+  if (ownProps.friendId) { friend = state.friends[ownProps.friendId]; }
+  return {
+    friend
+  };
+};
+
+export default connect(mapStateToProps, null)(RightSidebar);

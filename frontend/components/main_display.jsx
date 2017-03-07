@@ -8,7 +8,7 @@ const MainDisplay = (props) => {
     <div className="full-display-container">
       <LeftSidebar/>
       <CenterPanel displayType={props.route.path}/>
-      <RightSidebar displayType={props.route.path}/>
+      <RightSidebar displayType={props.route.path} friendId={props.params.id}/>
     </div>
   );
 };
