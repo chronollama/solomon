@@ -12,6 +12,7 @@ class Api::FriendshipsController < ApplicationController
 
   def show
     @friend = User.find(params[:id])
+    @net = Debt.net(current_user.id, @friend.id)
     render :show
   end
 
