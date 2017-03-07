@@ -14,10 +14,14 @@ class Api::BillsController < ApplicationController
       OR debts.creditor_id = #{current_user.id}").references(:debts)
     render :index
   end
+  # TODO move this logic to model?
 
   def show
     @bill = Bill.includes(:debts, :bill_shares).where(
-      "bill_shares.user_id = #{current_user.id}").references(:bill_shares).find(params[:id])
+      "bill_shares.user_id = #{current_user.id}"
+      ).references(:bill_shares).find(params[:id])
+    @debt = @bill.debts[0]
+    @bill_share = @bill.bill_shares[0]
     if @bill.user_ids.include?(current_user.id)
       render :show
     else
@@ -37,9 +41,14 @@ class Api::BillsController < ApplicationController
   end
 
   def destroy
-    @bill = Bill.find(params[:id])
+    @bill = Bill.includes(:debts, :bill_shares).where(
+      "bill_shares.user_id = #{current_user.id}"
+      ).references(:bill_shares).find(params[:id])
+    @debt = @bill.debts[0]
+    @bill_share = @bill.bill_shares[0]
     if @bill
       @bill.destroy
+      debugger
       render :show
     else
       render json: @bill.errors.full_messages, status: 422
@@ -47,6 +56,7 @@ class Api::BillsController < ApplicationController
   end
 
   private
+
   def bill_params
     params.require(:bill).permit(:category, :description, :total, :date, :notes)
   end
