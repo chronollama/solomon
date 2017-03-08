@@ -4,7 +4,7 @@ export const objectToArray = (object) => {
   });
 };
 
-export const debtDirection = (currentUserId, debtorId) => {
+export const debtRelationship = (currentUserId, debtorId) => {
   return (currentUserId === debtorId) ? "debtor" : "creditor";
 };
 

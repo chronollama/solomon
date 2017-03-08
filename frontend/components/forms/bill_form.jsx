@@ -60,8 +60,8 @@ class BillForm extends React.Component {
     let valid = true;
     let sum = 0;
     this.state.shares.forEach((share) => {
-      sum = sum + Number(share.amount)
-    })
+      sum = sum + Number(share.amount);
+    });
     if (sum !== Number(this.state.total)) {
       valid = false;
       this.props.receiveBillErrors(["Individual shares must add up to the bill total."]);
@@ -151,12 +151,15 @@ class BillForm extends React.Component {
     const billShares = this.state.shares.map((share, idx) => {
       if (idx === 0) {
         const {currentUser} = this.props;
-        return (
-          <li key={idx}>
-            <Share id={currentUser.id} name={currentUser.name} amount={share.amount} idx={idx}
-              updateShare={this.updateShare} />
-          </li>
-        );
+        if (currentUser === null) { return null; }
+        else {
+          return (
+            <li key={idx}>
+              <Share id={currentUser.id} name={currentUser.name} amount={share.amount} idx={idx}
+                updateShare={this.updateShare} />
+            </li>
+          );
+        }
       }
 
       return (
@@ -171,7 +174,7 @@ class BillForm extends React.Component {
 
   alertBar() {
     if (this.props.errors.length > 0) {
-      return <AlertBar />
+      return <AlertBar />;
     } else {
       return null;
     }

@@ -32,7 +32,9 @@
 .list-titles {
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  width: 400px;
+  margin: auto;
+  padding: 10px;
   color: $darkergray;
   text-transform: uppercase;
   font-size: 13px;
@@ -54,7 +56,7 @@
 .dashboard-list li {
   padding: 5px 20px;
   line-height: 1.2;
-  height: 50px;
+  height: 40px;
 }
 
 .credit-item {
