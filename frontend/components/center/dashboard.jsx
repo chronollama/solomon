@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { myCredits, myDebts } from '../../reducers/selectors';
 import BillForm from '../forms/bill_form';
 
 class Dashboard extends React.Component {
@@ -22,11 +23,27 @@ class Dashboard extends React.Component {
   }
 
   listCredits() {
-    
+    const friends = this.props.friends;
+    return this.props.myCredits.map((credit) => {
+      return (
+        <li key={credit.id} className="credit-item">
+          <p>{friends[credit.id].name}</p>
+          <p>owes you {credit.amount}</p>
+        </li>
+      );
+    });
   }
 
   listDebts() {
-
+    return this.props.myDebts.map((debt) => {
+      const friends = this.props.friends;
+      return (
+        <li key={debt.id} className="debt-item">
+          <p>You owe {friends[debt.id].name}</p>
+          <p>{debt.amount}</p>
+        </li>
+      );
+    });
   }
 
   render() {
@@ -51,11 +68,11 @@ class Dashboard extends React.Component {
 
         <main className="dashboard-main">
           <div><h2>You owe</h2><h2>You are owed</h2></div>
-          <ul className="list-debts">
+          <ul className="debts-list">
             {this.listDebts()}
           </ul>
 
-          <ul className="list-credits">
+          <ul className="credits-list">
             {this.listCredits()}
           </ul>
         </main>
@@ -66,7 +83,9 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-
+    friends: state.friends,
+    myCredits: myCredits(state.friends),
+    myDebts: myDebts(state.friends)
   };
 };
 
