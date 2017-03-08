@@ -1,16 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { debtDirection, objectToArray } from '../../reducers/selectors';
+import { isEmpty } from 'lodash';
+import { debtRelationship, objectToArray } from '../../reducers/selectors';
 import { updateBill, deleteBill } from '../../actions/bill_actions';
 
 class ExpenseItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      fetching: true
       // TODO: dropdown for more detail on a bill
     };
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+
   }
 
   handleDelete(id) {
@@ -21,10 +26,13 @@ class ExpenseItem extends React.Component {
 
   message() {
     const {friends, debtDirection, debt} = this.props;
+    if (isEmpty(friends)) { return null; }
     if (debtDirection === "debtor") {
       return `${friends[debt.creditor_id].name} lent you`;
-    } else {
+    } else if (debtDirection === "creditor") {
       return `you lent ${friends[debt.debtor_id].name}`;
+    } else {
+      return null;
     }
   }
 
@@ -68,9 +76,13 @@ class ExpenseItem extends React.Component {
 // TODO: hover over expense-item to cause delete button to appear
 
 const mapStateToProps = (state, ownProps) => {
+  let debtDirection;
+  if (state.session.currentUser) {
+    debtDirection = debtRelationship(state.session.currentUser.id, ownProps.debt.debtor_id);
+  } else { debtDirection = null; }
   return {
     friends: state.friends,
-    debtDirection: debtDirection(state.session.currentUser.id, ownProps.debt.debtor_id)
+    debtDirection
   };
 };
 
