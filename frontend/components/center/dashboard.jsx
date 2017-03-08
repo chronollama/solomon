@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { myCredits, myDebts } from '../../reducers/selectors';
+import { getFriends } from '../../actions/friend_actions';
 import BillForm from '../forms/bill_form';
 
 class Dashboard extends React.Component {
@@ -14,6 +15,10 @@ class Dashboard extends React.Component {
     };
     this.openBillForm = this.openBillForm.bind(this);
     this.closeBillForm = this.closeBillForm.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getFriends();
   }
 
   openBillForm() {
@@ -127,7 +132,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    getFriends: () => dispatch(getFriends())
   };
 };
 
