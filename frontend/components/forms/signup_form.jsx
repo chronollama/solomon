@@ -56,7 +56,7 @@ class SignupForm extends React.Component {
     return (
       <div className="wrapper">
         <div className="form-container-large">
-          <a className="logo-large" href="/" value>Logo to redirect home</a>
+          <a className="logo-large" href="/" value></a>
 
           <div className="content-block">
 

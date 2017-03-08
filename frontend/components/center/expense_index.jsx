@@ -78,8 +78,7 @@ class ExpenseIndex extends React.Component {
               onClick={this.openBillForm}>Add a bill</button>
             <BillForm open={this.state.showBillForm}
               closeBillForm={this.closeBillForm}/>
-            <button id='settle-btn' className='btn btn-login'>
-              Settle up</button>
+
           </div>
         </header>
 

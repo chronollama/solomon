@@ -10,9 +10,6 @@ const LeftSidebar = () => {
       <Link to="/dashboard"><div>
         <i className="fa fa-home" aria-hidden="true"></i>Dashboard
       </div></Link>
-      <Link to="/activity"><div>
-        <i className="fa fa-flag" aria-hidden="true"></i>Recent activity
-      </div></Link>
       <Link to="/expenses"><div>
         <i className="fa fa-list" aria-hidden="true"></i>All expenses
       </div></Link>

@@ -2,17 +2,12 @@ import React from 'react';
 
 const ProfileDropdown = ({ hidden, logout }) => {
   if (hidden) {
-    return (
-      <div></div>
-    )
+    return <div></div>;
   }
   // TODO: dropdown transition
 
   return (
     <ul className='instant-dropdown'>
-      <li>Your account</li>
-      <li>Create a group</li>
-      <li>Fairness calculators</li>
       <li onClick={logout}>Log out</li>
     </ul>
   );
