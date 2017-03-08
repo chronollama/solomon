@@ -66,13 +66,16 @@ class Dashboard extends React.Component {
           <div>You are owed</div>
         </div>
 
+        <div className="list-titles">
+          <h2>You owe</h2>
+          <h2>You are owed</h2>
+        </div>
         <main className="dashboard-main">
-          <div><h2>You owe</h2><h2>You are owed</h2></div>
-          <ul className="debts-list">
+          <ul className="debts dashboard-list">
             {this.listDebts()}
           </ul>
 
-          <ul className="credits-list">
+          <ul className="credits dashboard-list">
             {this.listCredits()}
           </ul>
         </main>

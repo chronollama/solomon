@@ -10,7 +10,13 @@
   font-size: 15px;
 }
 
-.dashboard-main > div {
+.dashboard-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.list-titles {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
@@ -18,4 +24,24 @@
   text-transform: uppercase;
   font-size: 13px;
   font-weight: bold;
+}
+
+.dashboard-list {
+  width: 300px;
+}
+
+.credits {
+
+}
+
+.debts {
+
+}
+
+.credits-item {
+
+}
+
+.debts-item {
+
 }
