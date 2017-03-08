@@ -30,18 +30,25 @@
   width: 300px;
 }
 
-.credits {
+.credit {
+  color: $mint;
+}
+
+.debt {
+  color: $orange;
+}
+
+.dashboard-list li {
+  padding: 5px 20px;
+  line-height: 1.2;
+  height: 50px;
+}
+
+.credit-item {
+  border-left: 1px solid $gray;
 
 }
 
-.debts {
-
-}
-
-.credits-item {
-
-}
-
-.debts-item {
+.debt-item {
 
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { myCredits, myDebts } from '../../reducers/selectors';
 import BillForm from '../forms/bill_form';
 
@@ -8,7 +9,8 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       fetching: true,
-      showBillForm: false
+      showBillForm: false,
+      balance: "neutral"
     };
     this.openBillForm = this.openBillForm.bind(this);
     this.closeBillForm = this.closeBillForm.bind(this);
@@ -24,12 +26,15 @@ class Dashboard extends React.Component {
 
   listCredits() {
     const friends = this.props.friends;
+    let sum = 0;
     return this.props.myCredits.map((credit) => {
       return (
-        <li key={credit.id} className="credit-item">
-          <p>{friends[credit.id].name}</p>
-          <p>owes you {credit.amount}</p>
-        </li>
+        <Link to={`/friends/${credit.id}`} key={credit.id}>
+          <li key={credit.id} className="credit-item">
+            <p>{friends[credit.id].name}</p>
+            <p className="credit">owes you {credit.amount}</p>
+          </li>
+        </Link>
       );
     });
   }
@@ -38,15 +43,43 @@ class Dashboard extends React.Component {
     return this.props.myDebts.map((debt) => {
       const friends = this.props.friends;
       return (
-        <li key={debt.id} className="debt-item">
-          <p>You owe {friends[debt.id].name}</p>
-          <p>{debt.amount}</p>
-        </li>
+        <Link to={`/friends/${debt.id}`} key={debt.id}>
+          <li key={debt.id} className="debt-item">
+            <p>{friends[debt.id].name}</p>
+            <p className="debt">you owe {debt.amount}</p>
+          </li>
+        </Link>
       );
     });
   }
 
+  sumCredits() {
+    let centSum = 0;
+    this.props.myCredits.forEach((credit) => {
+      centSum += credit.amount.slice(1) * 100;
+    });
+    return centSum / 100;
+  }
+
+  sumDebts() {
+    let centSum = 0;
+    this.props.myDebts.forEach((debt) => {
+      centSum += debt.amount.slice(1) * 100;
+    });
+    return centSum / 100;
+  }
+
+  sumTotal() {
+    return (parseInt(this.sumCredits() * 100) - parseInt(this.sumDebts() * 100)) / 100;
+  }
+
   render() {
+    let balance;
+    const total = this.sumTotal();
+    if (total > 0) { balance = "credit"; }
+    else if (total < 0) { balance = "debt"; }
+    else balance = "settled";
+
     return (
       <div>
         <header className="dashboard-header">
@@ -61,9 +94,9 @@ class Dashboard extends React.Component {
           </div>
         </header>
         <div className="dashboard-summary">
-          <div>Total balance</div>
-          <div>You owe</div>
-          <div>You are owed</div>
+          <div>Total balance<p className={balance}>${this.sumTotal()}</p></div>
+          <div>You owe<p className="debt">${this.sumDebts()}</p></div>
+          <div>You are owed<p className="credit">${this.sumCredits()}</p></div>
         </div>
 
         <div className="list-titles">

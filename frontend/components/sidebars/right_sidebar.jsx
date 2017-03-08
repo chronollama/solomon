@@ -44,16 +44,16 @@ class RightSidebar extends React.Component {
       if (net.status === "debtor") {
         return  (
           <div>
-            <p className="debtor">You owe {this.props.friend.name}</p>
-            <p className="debtor net">{net.amount}</p>
+            <p className="debt">You owe {this.props.friend.name}</p>
+            <p className="debt net">{net.amount}</p>
           </div>
         );
 
       } else if (net.status === "creditor") {
         return (
           <div>
-            <p className="creditor">{this.props.friend.name} owes you</p>
-            <p className="creditor net">{net.amount}</p>
+            <p className="credit">{this.props.friend.name} owes you</p>
+            <p className="credit net">{net.amount}</p>
           </div>
         );
       } else {
