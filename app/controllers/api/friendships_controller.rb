@@ -7,6 +7,7 @@ class Api::FriendshipsController < ApplicationController
     else
       @friends = current_user.friends
     end
+    @balances = current_user.net_balances
     render :index
   end
 

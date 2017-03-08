@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-  # TODO: should the show renders be redirects to dashboard?
   def create
     @user = User.new(user_params)
     if @user.save

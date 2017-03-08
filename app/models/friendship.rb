@@ -13,10 +13,10 @@ class Friendship < ActiveRecord::Base
   validates :friender, presence: true
   validates :friendee, presence: true
 
-  validates :user_id, uniqueness: {scope: :friend_id,
-    message: "You are already friends with that person."}
-  validates :friend_id, uniqueness: {scope: :user_id,
-    message: "You are already friends with that person."}
+  validates :user_id, uniqueness: { scope: :friend_id,
+    message: "You are already friends with that person." }
+  validates :friend_id, uniqueness: { scope: :user_id,
+    message: "You are already friends with that person." }
   validate :cannot_friend_self
   validate :friendship_already_exists
 
@@ -38,6 +38,12 @@ class Friendship < ActiveRecord::Base
     Friendship.where("user_id = #{user_id} AND friend_id = #{friend_id}
       OR user_id = #{friend_id} AND friend_id = #{user_id}").first
   end
+
+  def self.debt_between(current_user_id, friend_id)
+    Debt.net(current_user_id, friend_id)
+  end
+
+  private
 
   def cannot_friend_self
     if user_id == friend_id

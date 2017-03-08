@@ -32,10 +32,10 @@ class Debt < ActiveRecord::Base
     current_user_owes = Debt.where("debtor_id = #{current_user_id} AND creditor_id = #{user2_id}").sum(:amount)
     user2_owes = Debt.where("debtor_id = #{user2_id} AND creditor_id = #{current_user_id}").sum(:amount)
     net = current_user_owes - user2_owes
-    if net < 0
-      {status: :creditor, amount: net * -1}
-    elsif net > 0
+    if net > 0
       {status: :debtor, amount: net}
+    elsif net < 0
+      {status: :creditor, amount: net * -1}
     else
       {status: :settled, amount: 0}
     end

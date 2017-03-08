@@ -54,20 +54,52 @@ class User < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :creditor_id
 
+  def add_friend(friend_id)
+    Friendship.create!(user_id: id, friend_id: friend_id)
+  end
 
-# TODO: cut this down to 1 server query
   def friends
     requested_friends + received_friends
+  end
+
+  def grouped_credits
+    credits.group(:debtor_id).sum(:amount)
+  end
+
+  def grouped_debts
+    debts.group(:creditor_id).sum(:amount)
+  end
+
+  def net_balances
+    balances = {}
+    grouped_credits.each do |id, sum|
+      balances[id] = { status: "creditor", amount: sum }
+    end
+
+    grouped_debts.each do |id, sum|
+      if balances[id]
+        net = balances[id][:amount] - sum
+        if net > 0
+          balances[id][:amount] = net
+        elsif net < 0
+          balances[id][:status] = "debtor"
+          balances[id][:amount] = net * -1
+        else
+          balances[id][:status] = "settled"
+          balances[id][:amount] = 0
+        end
+      else
+        balances[id] = {status: "debtor", amount: sum }
+      end
+    end
+
+    balances
   end
 
   def search_friends(query)
     first_match = requested_friends.where("users.name LIKE '%#{query}%' OR users.email LIKE '%#{query}%'")
     second_match = received_friends.where("users.name LIKE '%#{query}%' OR users.email LIKE '%#{query}%'")
     first_match + second_match
-  end
-
-  def add_friend(friend_id)
-    Friendship.create!(user_id: id, friend_id: friend_id)
   end
 
   def self.find_by_credentials(email, password)
