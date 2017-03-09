@@ -14,10 +14,6 @@ class ExpenseItem extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-
-  }
-
   handleDelete(id) {
     return (e) => {
       this.props.deleteBill(id);
