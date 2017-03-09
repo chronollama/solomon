@@ -27,7 +27,44 @@ end
 
 ### Calculating Debts
 
-Accurate debt calculation is Solomon's cornerstone feature. To accomplish this, 
+Accurate debt calculation is Solomon's cornerstone feature. The `calculate_split` method divides the bill total among the number of associated shares and distributes any remainder cent by cent. In some cases, this results in an unavoidably unequal split where parties may have to pay an additional cent.
+```rb
+def calculate_split(num_shares)
+  split = []
+  num_shares.times { split << (total / num_shares) }
+  remainder = total % num_shares
+  until remainder == 0
+    split.map! do |amount|
+      break if remainder == 0
+      remainder -= 1
+      amount += 1
+    end
+  end
+  split
+end
+
+# Given a bill total of 800 ($8 converted to cents)
+calculate_split(3) #=> [267, 267, 266]
+```
+
+After creditors and debtors are determined, 
+```rb
+def record_debts(creditor_id)
+  debtors.each do |debtor_id, debt|
+    credit = creditors[creditor_id]
+    if credit > debt
+      Debt.create!(amount: debt, creditor_id: creditor_id, debtor_id: debtor_id, bill_id: self.id)
+      creditors[creditor_id] = credit - debt
+      debtors.delete(debtor_id)
+    else credit <= debt
+      Debt.create!(amount: credit, creditor_id: creditor_id, debtor_id: debtor_id, bill_id: self.id)
+      debt == credit ? debtors.delete(debtor_id) : debtors[debtor_id] = debt - credit
+      creditors.delete(creditor_id)
+      return nil
+    end
+  end
+end
+```
 
 calculation
 getting net with particular friend
