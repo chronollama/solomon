@@ -70,8 +70,12 @@ Each debt is associated with a specific bill so it can be removed in the event t
 
 ```rb
 def Debt.net(current_user_id, user2_id)
-  current_user_owes = Debt.where("debtor_id = #{current_user_id} AND creditor_id = #{user2_id}").sum(:amount)
-  user2_owes = Debt.where("debtor_id = #{user2_id} AND creditor_id = #{current_user_id}").sum(:amount)
+  current_user_owes = Debt.where(
+    "debtor_id = #{current_user_id} AND creditor_id = #{user2_id}"
+    ).sum(:amount)
+  user2_owes = Debt.where(
+    "debtor_id = #{user2_id} AND creditor_id = #{current_user_id}"
+    ).sum(:amount)
   net = current_user_owes - user2_owes
   if net > 0
     {status: :debtor, amount: net}
