@@ -89,8 +89,6 @@ end
 
 ### Friending
 
-search
-friends list
-made available to split bills with
+things to mention: search, friends list, made available to split bills with
 
 [solomon]: http://www.solomon-app.us/
