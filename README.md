@@ -47,7 +47,7 @@ end
 calculate_split(3) #=> [267, 267, 266]
 ```
 
-After creditors and debtors are determined, 
+After creditors and debtors are determined, the `record_debts` method matches debt shares to creditors. It successfully handles situations where a debt needs to be split among multiple creditors or multiple debtors need to pay the same creditor.
 ```rb
 def record_debts(creditor_id)
   debtors.each do |debtor_id, debt|
@@ -66,24 +66,27 @@ def record_debts(creditor_id)
 end
 ```
 
-calculation
-getting net with particular friend
-getting overall balance of debts and credits
+Each debt is associated with a specific bill so it can be removed in the event that the bill is deleted. In order to determine net balance between two people, the `Debt` model queries the database for all entries associated with them, sums the debt in each direction, and returns the debtor, creditor, and amount owed.
+
+```rb
+def Debt.net(current_user_id, user2_id)
+  current_user_owes = Debt.where("debtor_id = #{current_user_id} AND creditor_id = #{user2_id}").sum(:amount)
+  user2_owes = Debt.where("debtor_id = #{user2_id} AND creditor_id = #{current_user_id}").sum(:amount)
+  net = current_user_owes - user2_owes
+  if net > 0
+    {status: :debtor, amount: net}
+  elsif net < 0
+    {status: :creditor, amount: net * -1}
+  else
+    {status: :settled, amount: 0}
+  end
+end
+```
 
 ### Friending
 
 search
 friends list
 made available to split bills with
-
-
-
-### Features Summary
-
-* Create account/Log in/Log out
-* Record and remove bills
-* Calculate debts
-* Add friends and view expenses shared with them
-* Summarize balance
 
 [solomon]: http://www.solomon-app.us/
