@@ -6,14 +6,28 @@
 
 ### Recording Bills
 
-form
-validations
-transaction
-shares, Debts
+The bill creation form includes an expandable section where additional parties can be added to an expense in order to include them in the split calculations. When a bill is submitted, it triggers a cascade of actions across the `Bill`, `BillShare`, and `Debt` models via the `make_records` method. This method uses a transaction to ensure that the input must pass a series of validations before the server saves it to the database. These steps are necessary to maintain database integrity with the financial information that is being stored.
+
+First, the reported amount paid by each party must add up to the bill total itself or the submission is rejected. The bill model then verifies the presence and format of important fields before new bill shares are created. If those shares are validated, the `reconcile_debts_to_credits` method matches debtors to creditors, splitting a single debtor's payment among multiple creditors if necessary. This records multiple debts to the database and concludes the transaction.
+
+```rb
+def make_records(shares, bill_params = nil)
+  success = false
+  Bill.transaction do
+    bill_params ? self.update(bill_params) : self.save!
+    split = calculate_split(shares.length)
+    create_shares(shares, split) # Records each party to the expense and the amount they paid
+    aggregate_differences # Separates debtors and creditors
+    reconcile_debts_to_credits # Matches debtors with creditors and records amount owed to each
+    success = true
+  end
+  success
+end
+```
 
 ### Calculating Debts
 
-When a bill is submitted along with its respective shares,
+Accurate debt calculation is Solomon's cornerstone feature. To accomplish this, 
 
 calculation
 getting net with particular friend
