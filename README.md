@@ -28,6 +28,7 @@ end
 ### Calculating Debts
 
 Accurate debt calculation is Solomon's cornerstone feature. The `calculate_split` method divides the bill total among the number of associated shares and distributes any remainder cent by cent. In some cases, this results in an unavoidably unequal split where parties may have to pay an additional cent.
+
 ```rb
 def calculate_split(num_shares)
   split = []
@@ -48,6 +49,7 @@ calculate_split(3) #=> [267, 267, 266]
 ```
 
 After creditors and debtors are determined, the `record_debts` method matches debt shares to creditors. It successfully handles situations where a debt needs to be split among multiple creditors or multiple debtors need to pay the same creditor.
+
 ```rb
 def record_debts(creditor_id)
   debtors.each do |debtor_id, debt|
@@ -87,8 +89,10 @@ def Debt.net(current_user_id, user2_id)
 end
 ```
 
-### Friending
+### Future Development
 
-things to mention: search, friends list, made available to split bills with
+* Edit form for bills that updates shares and debts accordingly
+* Record payments between individuals and update debts accordingly
+* Make comments on bills
 
 [solomon]: http://www.solomon-app.us/
