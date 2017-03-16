@@ -53,6 +53,10 @@
 
 .description {
   font-weight: bold;
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .description:hover {
@@ -90,4 +94,20 @@
 
 .creditor {
   color: $mint
+}
+
+.expense-details {
+  padding: 10px;
+  background: $gray;
+  border-top: 1px solid $darkgray;
+  border-bottom: 1px solid $darkgray;
+  min-height: 50px;
+}
+
+.expense-details h6 {
+  font-weight: bold;
+}
+
+.details-section {
+  margin: 10px 0;
 }

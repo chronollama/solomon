@@ -16,7 +16,7 @@ class Bill < ActiveRecord::Base
   validates :category, :description, :total, :date, presence: true
   validates :total, numericality: { greater_than_or_equal_to: 0 }
   before_create :format_total
-  # TODO: check if shares sum to bill total
+  # TODO: validate that shares sum to bill total
 
   has_many :debts, dependent: :destroy
   has_many :bill_shares, dependent: :destroy

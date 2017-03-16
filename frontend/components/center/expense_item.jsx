@@ -8,17 +8,83 @@ class ExpenseItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetching: true
+      fetching: true,
+      showDetails: false,
       // TODO: dropdown for more detail on a bill
     };
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggleDetails = this.toggleDetails.bind(this);
+  }
+
+  expenseDetails() {
+    const bill = this.props.bill;
+    if (this.state.showDetails) {
+      return (
+        <div className="expense-details">
+            <div className="details-section">
+              <h6>Category:</h6>
+              <p className="category">{bill.category}</p>
+            </div>
+            <div className="details-section">
+              <h6>Description:</h6>
+              <p className="full-description">sdfjalsgjablkghbdaskrgjhdsrikghbdfgkksadh dfjgnbsl jgbearkjghbrklghdbfkhdfbkadshjgbdfklgbhajhbalkgjba,gkjgbkjrbflkhvldfkjfn akgbhlkjfbkljb</p>
+            </div>
+            <div className="details-section">
+              <h6>Notes:</h6>
+              <p className="bill-notes">{bill.notes}</p>
+            </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   handleDelete(id) {
     return (e) => {
+      e.stopPropagation();
       this.props.deleteBill(id);
     };
   }
+
+  handleInput(property) {
+    return (e) => {
+      this.setState({[property]: e.currentTarget.value});
+    };
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+
+    if (this.validateShareSum()) {
+      const {category, description, total, date, notes} = this.state;
+      const shares = this.formatShareData(this.state.shares);
+      this.props.addBill({ category, description, total, date, notes }, shares);
+      this.clearAndClose();
+    } else {
+      return null;
+    }
+  }
+
+  // mapDebtsToDetails(debts) {
+  //   return Object.values(debts).map((debt) => {
+  //     let debtorName, creditorName;
+  //     if (debt.debtor_id === this.props.currentUser.id) {
+  //       debtorName = this.props.currentUser.name;
+  //       creditorName = this.props.friends[debt.creditor_id].name;
+  //     } else {
+  //       debtorName = this.props.friends[debt.debtor_id].name;
+  //       creditorName = this.props.currentUser.name;
+  //     }
+  //
+  //     return (
+  //       <div key={debt.id} className="expense-single-debt">
+  //         <p>`${debtorName} owes ${creditorName} ${debt.amount}`</p>
+  //       </div>
+  //     );
+  //   });
+  // }
 
   message() {
     const {friends, debtDirection, debt} = this.props;
@@ -32,40 +98,48 @@ class ExpenseItem extends React.Component {
     }
   }
 
+  toggleDetails() {
+    this.setState({ showDetails: !this.state.showDetails });
+  }
+
   render() {
     const {bill, debt, debtDirection} = this.props;
     const date = new Date(bill.date);
     const month = date.toLocaleDateString('en-US', {month: 'short'});
     const day = date.toLocaleDateString('en-US', {day: 'numeric'});
     return (
-      <div className="expense-item">
-        <summary>
-          <div className="expense-detail date">
-            <div className="month">{month}</div>
-            <div className="day">{day}</div>
-          </div>
-          <div className="expense-detail category">{bill.category}</div>
-          <div className="expense-detail description">{bill.description}</div>
-        </summary>
+      <div>
+        <div className="expense-item" onClick={this.toggleDetails}>
+          <summary>
+            <div className="expense-detail date">
+              <div className="month">{month}</div>
+              <div className="day">{day}</div>
+            </div>
+            <div className="expense-detail description">{bill.description}</div>
+          </summary>
 
-        <summary>
-          <div className="cost">
-            <div className="paid">
-              <h6>Paid</h6>
-              <div>{bill.paid}</div>
+          <summary>
+            <div className="cost">
+              <div className="paid">
+                <h6>Paid</h6>
+                <div>{bill.paid}</div>
+              </div>
+
+              <div className="lent">
+                <h6>{this.message()}</h6>
+                <div className={this.props.debtDirection}>{debt.amount}</div>
+              </div>
             </div>
 
-            <div className="lent">
-              <h6>{this.message()}</h6>
-              <div className={this.props.debtDirection}>{debt.amount}</div>
-            </div>
-          </div>
+            <button className="delete-expense" onClick={this.handleDelete(bill.id)}>
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </summary>
 
-          <button className="delete-expense" onClick={this.handleDelete(bill.id)}>
-            <i className="fa fa-times" aria-hidden="true"></i>
-          </button>
-        </summary>
+        </div>
+        {this.expenseDetails()}
       </div>
+
     );
   }
 }
@@ -78,14 +152,15 @@ const mapStateToProps = (state, ownProps) => {
   } else { debtDirection = null; }
   return {
     friends: state.friends,
+    currentUser: state.session.currentUser,
     debtDirection
   };
 };
 
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    deleteBill: (id) => dispatch(deleteBill(id))
+    updateBill: (bill, shares) => dispatch(updateBill(bill, shares)),
+    deleteBill: (id) => dispatch(deleteBill(id)),
   };
 };
 
