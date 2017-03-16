@@ -56,5 +56,3 @@ export const deleteFriend = (id) => {
     );
   };
 };
-
-// TODO: error handling for friends?

@@ -40,7 +40,6 @@ class LoginDropdown extends React.Component {
     this.setState({dropdownActive: dropdownState});
   }
 
-  // TODO: figure out what to do with errors here
   render() {
     let dropdown;
     if (this.state.dropdownActive) {

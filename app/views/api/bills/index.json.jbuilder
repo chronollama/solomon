@@ -24,5 +24,3 @@
     end
   end
 end
-
-# TODO: should model methods be used in view? probably not

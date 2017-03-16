@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
     session[:session_token] = nil
   end
 
-  # TODO: should this be private/protected? Users and Sessions controllers need to inherit
   def user_params
     params.require(:user).permit(:email, :password, :name)
   end

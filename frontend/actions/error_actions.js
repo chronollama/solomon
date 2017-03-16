@@ -14,4 +14,4 @@ export const receiveBillErrors = (errors) => {
   };
 };
 
-// TODO: refactor errors to its own actions/reducer?
+// TODO: refactor errors to its own actions/reducer

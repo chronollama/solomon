@@ -106,7 +106,6 @@ class InviteFriend extends React.Component {
     );
   }
 }
-// TODO: error for adding non-user as friend, search bar that displays users while typing
 
 const mapStateToProps = state => {
   return {
