@@ -42,3 +42,21 @@
   background: $mint;
   color: #fff;
 }
+
+.expense-detail-dropdown-enter {
+  max-height: 0;
+  transition: max-height 150ms ease;
+  overflow: hidden;
+}
+
+.expense-detail-dropdown-enter.expense-detail-dropdown-enter-active {
+  height: auto;
+}
+
+.expense-detail-dropdown-leave {
+  transition: max-height 150ms ease;
+}
+.expense-detail-dropdown-leave.expense-detail-dropdown-leave-active {
+  overflow: hidden;
+  max-height: 0;
+}

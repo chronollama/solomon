@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { debtRelationship, objectToArray } from '../../reducers/selectors';
@@ -19,7 +20,8 @@ class ExpenseItem extends React.Component {
   expenseDetails() {
     const bill = this.props.bill;
     if (this.state.showDetails) {
-      return (
+      let details = "";
+      details = (
         <div className="expense-details">
             <div className="details-section">
               <h6>Category:</h6>
@@ -34,6 +36,15 @@ class ExpenseItem extends React.Component {
               <p className="bill-notes">{bill.notes}</p>
             </div>
         </div>
+      );
+
+      return (
+          <ReactCSSTransitionGroup component="div"
+            transitionName='expense-detail-dropdown'
+            transitionEnterTimeout={150}
+            transitionLeaveTimeout={150}>
+            {details}
+          </ReactCSSTransitionGroup>
       );
     } else {
       return null;
@@ -55,7 +66,6 @@ class ExpenseItem extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
 
     if (this.validateShareSum()) {
       const {category, description, total, date, notes} = this.state;
