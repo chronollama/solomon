@@ -11,16 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = configureStore();
   }
-  // TODO remove window.store
-  window.store = store;
-
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
 });
-
-// TODO remove these when done testing
-// import {getBills, getBill, deleteBill, addBill} from './actions/bill_actions';
-// window.getBills = getBills;
-// window.getBill = getBill;
-// window.deleteBill = deleteBill;
-// window.addBill = addBill;
