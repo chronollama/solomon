@@ -112,3 +112,64 @@ bill11.make_records(shares11)
 bill12 = Bill.new(category: 'Life', description: 'Birthday gift for mom', total: 100, date: Date.parse('20-7-2016'))
 shares12 = {user1.id => 100, user5.id => 0}
 bill12.make_records(shares12)
+
+bill13 = Bill.new(category: 'General', description: 'Map of Middle Earth', total: 100, date: Date.parse('20-7-2016'))
+shares13 = {user1.id => 0, user2.id => 50, user3.id => 50, user4.id => 0}
+bill13.make_records(shares13)
+
+bill14 = Bill.new(category: 'General', description: 'Stainless steel napkins', total: 423, date: Date.parse('20-7-2016'))
+shares14 = {user1.id => 195, user2.id => 50, user3.id => 100, user4.id => 78}
+bill14.make_records(shares14)
+
+bill15 = Bill.new(category: 'General', description: 'Why did we get 15 pounds of jello?', total: 42, date: Date.parse('20-7-2016'))
+shares15 = {user1.id => 12, user2.id => 16, user3.id => 8, user4.id => 6}
+bill15.make_records(shares15)
+
+bill16 = Bill.new(category: 'General', description: 'Woebegone lamp', total: 60, date: Date.parse('20-7-2016'))
+shares16 = {user1.id => 0, user2.id => 0, user3.id => 0, user4.id => 60}
+bill16.make_records(shares16)
+
+bill17 = Bill.new(category: 'General', description: 'Magnificent cabbages', total: 100, date: Date.parse('20-7-2016'))
+shares17 = {user1.id => 0, user2.id => 50, user3.id => 30, user4.id => 20}
+bill17.make_records(shares17)
+
+bill18 = Bill.new(category: 'General', description: 'Mountain of pancakes', total: 49, date: Date.parse('20-7-2016'))
+shares18 = {user1.id => 0, user2.id => 40, user3.id => 0, user4.id => 9}
+bill18.make_records(shares18)
+
+bill19 = Bill.new(category: 'General', description: 'Coffee', total: 1234, date: Date.parse('20-7-2016'))
+shares19 = {user1.id => 409, user2.id => 50, user3.id => 532, user4.id => 243}
+bill19.make_records(shares19)
+
+bill20 = Bill.new(category: 'General', description: 'Rent', total: 2000, date: Date.parse('20-7-2016'))
+shares20 = {user1.id => 250, user2.id => 500, user3.id => 250, user4.id => 1000}
+bill20.make_records(shares20)
+
+____
+bill21 = Bill.new(category: 'General', description: 'Goat cheese', total: 20, date: Date.parse('12-6-2019'))
+shares21 = {user1.id => 0, user2.id => 4, user3.id => 12, user5.id => 4}
+bill21.make_records(shares21)
+
+bill22 = Bill.new(category: 'General', description: 'Bouncy castle', total: 400, date: Date.parse('12-6-2019'))
+shares22 = {user1.id => 0, user2.id => 0, user7.id => 0, user5.id => 400}
+bill22.make_records(shares22)
+
+bill23 = Bill.new(category: 'General', description: '2/3 Silmarils', total: 5000, date: Date.parse('12-6-2019'))
+shares23 = {user1.id => 1000, user2.id => 2000, user3.id => 1000, user5.id => 1000}
+bill23.make_records(shares23)
+
+bill24 = Bill.new(category: 'General', description: 'Refrigerator/toaster', total: 450, date: Date.parse('12-6-2019'))
+shares24 = {user1.id => 50, user2.id => 200, user7.id => 150, user6.id => 50}
+bill24.make_records(shares24)
+
+bill25 = Bill.new(category: 'General', description: 'Linens', total: 60, date: Date.parse('12-6-2019'))
+shares25 = {user1.id => 60, user7.id => 0, user5.id => 0, user6.id => 0}
+bill25.make_records(shares25)
+
+bill26 = Bill.new(category: 'General', description: 'Super Bowl snacks', total: 50, date: Date.parse('12-6-2019'))
+shares26 = {user1.id => 14, user8.id => 5, user5.id => 11, user6.id => 20}
+bill26.make_records(shares26)
+
+bill27 = Bill.new(category: 'General', description: 'Mediterranean vacation', total: 7500, date: Date.parse('12-6-2019'))
+shares27 = {user1.id => 1500, user8.id => 3000, user7.id => 750, user6.id => 2250}
+bill27.make_records(shares27)
