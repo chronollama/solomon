@@ -145,7 +145,6 @@ bill20 = Bill.new(category: 'General', description: 'Rent', total: 2000, date: D
 shares20 = {user1.id => 250, user2.id => 500, user3.id => 250, user4.id => 1000}
 bill20.make_records(shares20)
 
-____
 bill21 = Bill.new(category: 'General', description: 'Goat cheese', total: 20, date: Date.parse('12-6-2019'))
 shares21 = {user1.id => 0, user2.id => 4, user3.id => 12, user5.id => 4}
 bill21.make_records(shares21)
