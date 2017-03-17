@@ -21,12 +21,12 @@ class Dashboard extends React.Component {
     this.props.getFriends();
   }
 
-  openBillForm() {
-    this.setState({showBillForm: true});
-  }
-
   closeBillForm() {
     this.setState({showBillForm: false});
+  }
+
+  displayCurrency(amount) {
+    return amount.toLocaleString("en-US", {style:"currency", currency:"USD"});
   }
 
   listCredits() {
@@ -58,6 +58,10 @@ class Dashboard extends React.Component {
     });
   }
 
+  openBillForm() {
+    this.setState({showBillForm: true});
+  }
+
   sumCredits() {
     let centSum = 0;
     this.props.myCredits.forEach((credit) => {
@@ -75,7 +79,8 @@ class Dashboard extends React.Component {
   }
 
   sumTotal() {
-    return (parseInt(this.sumCredits() * 100) - parseInt(this.sumDebts() * 100)) / 100;
+    let centSum = (parseInt(this.sumCredits() * 100) - parseInt(this.sumDebts() * 100));
+    return centSum / 100;
   }
 
   render() {
@@ -98,9 +103,9 @@ class Dashboard extends React.Component {
           </div>
         </header>
         <div className="dashboard-summary">
-          <div>Total balance<p className={balance}>${this.sumTotal()}</p></div>
-          <div>You owe<p className="debt">${this.sumDebts()}</p></div>
-          <div>You are owed<p className="credit">${this.sumCredits()}</p></div>
+          <div>Total balance<p className={balance}>{this.displayCurrency(this.sumTotal())}</p></div>
+          <div>You owe<p className="debt">{this.displayCurrency(this.sumDebts())}</p></div>
+          <div>You are owed<p className="credit">{this.displayCurrency(this.sumCredits())}</p></div>
         </div>
 
         <div className="list-titles">
