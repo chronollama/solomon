@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { debtRelationship, objectToArray } from '../../reducers/selectors';
 import { updateBill, deleteBill } from '../../actions/bill_actions';
+import { getFriends } from '../../actions/friend_actions';
 
 class ExpenseItem extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ExpenseItem extends React.Component {
             </div>
             <div className="details-section">
               <h6>Description:</h6>
-              <p className="full-description">sdfjalsgjablkghbdaskrgjhdsrikghbdfgkksadh dfjgnbsl jgbearkjghbrklghdbfkhdfbkadshjgbdfklgbhajhbalkgjba,gkjgbkjrbflkhvldfkjfn akgbhlkjfbkljb</p>
+              <p className="full-description">{bill.description}</p>
             </div>
             <div className="details-section">
               <h6>Notes:</h6>
@@ -54,7 +55,9 @@ class ExpenseItem extends React.Component {
   handleDelete(id) {
     return (e) => {
       e.stopPropagation();
-      this.props.deleteBill(id);
+      this.props.deleteBill(id).then(
+        this.props.getFriends
+      );
     };
   }
 
@@ -76,25 +79,6 @@ class ExpenseItem extends React.Component {
       return null;
     }
   }
-
-  // mapDebtsToDetails(debts) {
-  //   return Object.values(debts).map((debt) => {
-  //     let debtorName, creditorName;
-  //     if (debt.debtor_id === this.props.currentUser.id) {
-  //       debtorName = this.props.currentUser.name;
-  //       creditorName = this.props.friends[debt.creditor_id].name;
-  //     } else {
-  //       debtorName = this.props.friends[debt.debtor_id].name;
-  //       creditorName = this.props.currentUser.name;
-  //     }
-  //
-  //     return (
-  //       <div key={debt.id} className="expense-single-debt">
-  //         <p>`${debtorName} owes ${creditorName} ${debt.amount}`</p>
-  //       </div>
-  //     );
-  //   });
-  // }
 
   message() {
     const {friends, debtDirection, debt} = this.props;
@@ -171,6 +155,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateBill: (bill, shares) => dispatch(updateBill(bill, shares)),
     deleteBill: (id) => dispatch(deleteBill(id)),
+    getFriends: () => dispatch(getFriends()),
   };
 };
 

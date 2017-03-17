@@ -16,23 +16,23 @@ class RightSidebar extends React.Component {
 
   buttons() {
     switch (this.props.displayType) {
-      // case '/expenses':
-      //   return (
-      //     <div className="right-btns">
-      //       <button><i className="fa fa-align-justify" aria-hidden="true"></i></button>
-      //       <button><i className="fa fa-calendar" aria-hidden="true"></i></button>
-      //       <button><i className="fa fa-line-chart" aria-hidden="true"></i></button>
-      //     </div>
-      //   );
-      // case '/friends/:id':
-      //   return (
-      //     <div className="right-btns">
-      //       <button alt="Balances"><i className="fa fa-align-justify" aria-hidden="true"></i></button>
-      //       <button alt="Upcoming bills"><i className="fa fa-calendar" aria-hidden="true"></i></button>
-      //       <button alt="Trends"><i className="fa fa-line-chart" aria-hidden="true"></i></button>
-      //       <button alt="Settings"><i className="fa fa-cog" aria-hidden="true"></i></button>
-      //     </div>
-      //   );
+      case '/expenses':
+        return (
+          <div className="right-btns">
+            <button><i className="fa fa-align-justify" aria-hidden="true"></i></button>
+            <button><i className="fa fa-calendar" aria-hidden="true"></i></button>
+            <button><i className="fa fa-line-chart" aria-hidden="true"></i></button>
+          </div>
+        );
+      case '/friends/:id':
+        return (
+          <div className="right-btns">
+            <button alt="Balances"><i className="fa fa-align-justify" aria-hidden="true"></i></button>
+            <button alt="Upcoming bills"><i className="fa fa-calendar" aria-hidden="true"></i></button>
+            <button alt="Trends"><i className="fa fa-line-chart" aria-hidden="true"></i></button>
+            <button alt="Settings"><i className="fa fa-cog" aria-hidden="true"></i></button>
+          </div>
+        );
       default:
         return null;
     }
@@ -96,7 +96,6 @@ class RightSidebar extends React.Component {
   render() {
     return (
       <nav id="right-sidebar">
-        {this.buttons()}
 
         <div className="right-summary">
           {this.summaryTitle()}
